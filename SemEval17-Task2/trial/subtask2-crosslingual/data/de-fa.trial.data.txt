@@ -1,0 +1,34 @@
+Fleisch	گوشت گاو
+Fernseher	سینما
+Adler	شاهین
+Kopf	بینی
+Versuch	تست
+Nase	سر
+Test	آزمایش
+Baum	برگ
+Volleyball	توپ
+Kino	تلویزیون
+Tastatur	چراغ
+Biologe	میکروسکوپ
+Leine	غروب
+Fahrrad	پوست
+Zimmer	ساختمان
+Mathematik	علوم کامپیوتر
+Ball	والیبال
+Falke	عقاب
+Washington	نیویورک
+Heiler	روانشناس
+Rind	گوشت
+Blatt	درخت
+Haut	دوچرخه
+Psychologe	طبیب
+Gebäude	اتاق
+New York	واشنگتن
+Wagen	اتومبیل
+Mikroskop	بیولوژیست
+Science-Fiction	کمدی
+Sonnenuntergang	ریسمان
+Licht	کیبورد
+Informatik	ریاضی
+Komödie	علمی تخیلی
+Auto	ماشین

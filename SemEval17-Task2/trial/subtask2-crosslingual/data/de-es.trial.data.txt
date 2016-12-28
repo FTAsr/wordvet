@@ -1,0 +1,36 @@
+Informatik	matemáticas
+Kino	televisión
+Volleyball	pelota
+Licht	teclado
+Versuch	examen
+Zimmer	edificio
+Ball	voleibol
+Auto	coche
+Test	juicio
+Tastatur	luz
+Washington	Nueva York
+Kopf	nariz
+Bank	asiento
+Komödie	ciencia ficción
+Nase	cabeza
+Psychologe	curandero
+Science-Fiction	comedia
+Sitz	banco
+Falke	águila
+Sonnenuntergang	cuerda
+Fleisch	ternera
+Heiler	psicólogo
+Gebäude	habitación
+Fahrrad	piel
+Wagen	automóvil
+Adler	halcón
+Leine	puesta de sol
+Rind	carne
+Fernseher	cine
+Baum	rama
+Mikroskop	biólogo
+Mathematik	informática
+Haut	bicicleta
+New York	Washington
+Blatt	árbol
+Biologe	microscopio

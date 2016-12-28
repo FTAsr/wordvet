@@ -1,0 +1,36 @@
+meat	گوشت گاو
+volleyball	توپ
+computer science	ریاضی
+science fiction	کمدی
+string	غروب
+biologist	میکروسکوپ
+bike	پوست
+ball	والیبال
+mathematics	علوم کامپیوتر
+psychologist	طبیب
+cinema	تلویزیون
+light	کیبورد
+building	اتاق
+comedy	علمی تخیلی
+test	آزمایش
+Washington	نیویورک
+skin	دوچرخه
+trial	تست
+tree	برگ
+sunset	ریسمان
+bank	صندلی
+microscope	بیولوژیست
+head	بینی
+eagle	شاهین
+New York	واشنگتن
+nose	سر
+television	سینما
+car	اتومبیل
+leaf	درخت
+curandero	روانشناس
+room	ساختمان
+seat	بانک
+falcon	عقاب
+keyboard	چراغ
+beef	گوشت
+automobile	ماشین

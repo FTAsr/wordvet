@@ -1,0 +1,18 @@
+tramonto	corda
+banca	seduta
+stanza	edificio
+informatica	matematica
+New York	Washington
+automobile	macchina
+curandero	psicologo
+tastiera	luce
+naso	testa
+manzo	carne
+biologo	microscopio
+pallavolo	palla
+televisione	cinema
+aquila	falco
+bicicletta	pelle
+fantascienza	commedia
+albero	foglia
+giudizio	test

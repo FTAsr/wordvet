@@ -1,0 +1,36 @@
+television	cinema
+keyboard	luce
+bank	seduta
+leaf	albero
+comedy	fantascienza
+tree	foglia
+cinema	televisione
+falcon	aquila
+volleyball	palla
+beef	carne
+automobile	macchina
+car	automobile
+test	giudizio
+trial	test
+nose	testa
+skin	bicicletta
+mathematics	informatica
+meat	manzo
+computer science	matematica
+biologist	microscopio
+room	edificio
+psychologist	curandero
+sunset	corda
+seat	banca
+eagle	falco
+microscope	biologo
+ball	pallavolo
+bike	pelle
+head	naso
+string	tramonto
+building	stanza
+light	tastiera
+Washington	New York
+New York	Washington
+science fiction	commedia
+curandero	psicologo

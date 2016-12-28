@@ -1,0 +1,18 @@
+puesta de sol	cuerda
+banco	asiento
+habitación	edificio
+informática	matemáticas
+Nueva York	Washington
+automóvil	coche
+curandero	psicólogo
+teclado	luz
+nariz	cabeza
+ternera	carne
+biólogo	microscopio
+voleibol	pelota
+televisión	cine
+águila	halcón
+bicicleta	piel
+ciencia ficción	comedia
+árbol	rama
+juicio	examen
