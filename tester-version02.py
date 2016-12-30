@@ -204,13 +204,34 @@ def test(modelRepository, inputPath , outputPath):
 
     '''
     
+import getopt         
            
-           
-if __name__ == '__main__':
+def main(argv):
     modelRepository = "/Users/fa/workspace/repos/_codes/MODELS/text8exp/-cbow0-size100-window5-negative5-hs1-sample0-threads10-binary0-iter1/"
     inputPath = "/Users/fa/workspace/repos/_codes/sharedTask/classification-data/input/"
     outputPath = "/Users/fa/workspace/repos/_codes/sharedTask/classification-data/output/"
     
-    
+    try:
+        opts, args = getopt.getopt(argv,"hm:i:o:",["mrepos=","ifile=","ofile="])
+        print(opts)
+        print(args)
+    except getopt.GetoptError:
+        print 'test.py -m <modelrepos> -i <inputfile> -o <outputfile(s)>'
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt == '-h':
+            print 'test.py -m <modelrepos> -i <inputfile> -o <outputfile(s)>'
+            sys.exit()
+        elif opt in ("-m", "--mrepos"):
+            modelRepository = arg
+        elif opt in ("-i", "--ifile"):
+            inputfile = arg
+        elif opt in ("-o", "--ofile"):
+            outputfile = arg
     test(modelRepository, inputPath , outputPath)
     
+
+if __name__ == "__main__":
+   main(sys.argv[1:])
+   
+  
