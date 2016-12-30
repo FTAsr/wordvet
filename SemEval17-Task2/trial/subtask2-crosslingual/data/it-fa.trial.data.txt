@@ -1,0 +1,36 @@
+albero	برگ
+microscopio	بیولوژیست
+falco	عقاب
+manzo	گوشت
+seduta	بانک
+testa	بینی
+banca	صندلی
+fantascienza	کمدی
+cinema	تلویزیون
+palla	والیبال
+psicologo	طبیب
+televisione	سینما
+macchina	اتومبیل
+carne	گوشت گاو
+pelle	دوچرخه
+test	آزمایش
+Washington	نیویورک
+corda	غروب
+pallavolo	توپ
+informatica	ریاضی
+tramonto	ریسمان
+naso	سر
+biologo	میکروسکوپ
+New York	واشنگتن
+bicicletta	پوست
+foglia	درخت
+giudizio	تست
+commedia	علمی تخیلی
+stanza	ساختمان
+curandero	روانشناس
+edificio	اتاق
+luce	کیبورد
+aquila	شاهین
+matematica	علوم کامپیوتر
+tastiera	چراغ
+automobile	ماشین

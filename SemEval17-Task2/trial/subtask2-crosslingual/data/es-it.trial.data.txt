@@ -1,0 +1,34 @@
+juicio	test
+coche	automobile
+informática	matematica
+voleibol	palla
+cine	televisione
+comedia	fantascienza
+nariz	testa
+teclado	luce
+biólogo	microscopio
+piel	bicicletta
+bicicleta	pelle
+automóvil	macchina
+carne	manzo
+halcón	aquila
+microscopio	biologo
+psicólogo	curandero
+pelota	pallavolo
+cuerda	tramonto
+Nueva York	Washington
+cabeza	naso
+puesta de sol	corda
+ternera	carne
+edificio	stanza
+examen	giudizio
+matemáticas	informatica
+televisión	cinema
+Washington	New York
+árbol	foglia
+águila	falco
+rama	albero
+habitación	edificio
+ciencia ficción	commedia
+luz	tastiera
+curandero	psicologo

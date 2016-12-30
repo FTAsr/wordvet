@@ -1,0 +1,18 @@
+sunset	string
+bank	seat
+room	building
+computer science	mathematics
+New York	Washington
+automobile	car
+curandero	psychologist
+keyboard	light
+nose	head
+beef	meat
+biologist	microscope
+volleyball	ball
+television	cinema
+eagle	falcon
+bike	skin
+science fiction	comedy
+tree	leaf
+trial	test

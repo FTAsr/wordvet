@@ -1,0 +1,34 @@
+string	Sonnenuntergang
+keyboard	Licht
+mathematics	Informatik
+trial	Test
+building	Zimmer
+eagle	Falke
+tree	Blatt
+microscope	Biologe
+beef	Fleisch
+sunset	Leine
+comedy	Science-Fiction
+car	Auto
+head	Nase
+computer science	Mathematik
+skin	Fahrrad
+ball	Volleyball
+test	Versuch
+bike	Haut
+television	Kino
+cinema	Fernseher
+room	Gebäude
+light	Tastatur
+falcon	Adler
+leaf	Baum
+biologist	Mikroskop
+Washington	New York
+meat	Rind
+curandero	Psychologe
+New York	Washington
+volleyball	Ball
+nose	Kopf
+science fiction	Komödie
+psychologist	Heiler
+automobile	Wagen

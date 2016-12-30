@@ -1,0 +1,34 @@
+Kino	televisione
+Zimmer	edificio
+Mathematik	informatica
+Blatt	albero
+Science-Fiction	commedia
+Informatik	matematica
+Kopf	naso
+Gebäude	stanza
+Leine	tramonto
+Komödie	fantascienza
+Auto	macchina
+Versuch	test
+Haut	bicicletta
+Psychologe	curandero
+Falke	aquila
+Mikroskop	biologo
+Ball	pallavolo
+Nase	testa
+Adler	falco
+Tastatur	luce
+Test	giudizio
+Fahrrad	pelle
+Fernseher	cinema
+Wagen	automobile
+Rind	carne
+Licht	tastiera
+Sonnenuntergang	corda
+Heiler	psicologo
+Baum	foglia
+Washington	New York
+New York	Washington
+Fleisch	manzo
+Volleyball	palla
+Biologe	microscopio

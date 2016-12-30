@@ -1,0 +1,34 @@
+eagle	halcón
+leaf	árbol
+tree	rama
+curandero	psicólogo
+automobile	coche
+trial	examen
+car	automóvil
+beef	carne
+Washington	Nueva York
+bike	piel
+falcon	águila
+comedy	ciencia ficción
+computer science	matemáticas
+volleyball	pelota
+mathematics	informática
+cinema	televisión
+room	edificio
+biologist	microscopio
+string	puesta de sol
+science fiction	comedia
+New York	Washington
+psychologist	curandero
+microscope	biólogo
+sunset	cuerda
+head	nariz
+building	habitación
+keyboard	luz
+nose	cabeza
+television	cine
+ball	voleibol
+skin	bicicleta
+test	juicio
+meat	ternera
+light	teclado

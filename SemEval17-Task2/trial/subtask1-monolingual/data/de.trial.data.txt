@@ -1,0 +1,18 @@
+Sonnenuntergang	Leine
+Bank	Sitz
+Zimmer	Gebäude
+Informatik	Mathematik
+New York	Washington
+Auto	Wagen
+Heiler	Psychologe
+Tastatur	Licht
+Nase	Kopf
+Rind	Fleisch
+Biologe	Mikroskop
+Volleyball	Ball
+Fernseher	Kino
+Adler	Falke
+Fahrrad	Haut
+Science-Fiction	Komödie
+Baum	Blatt
+Versuch	Test

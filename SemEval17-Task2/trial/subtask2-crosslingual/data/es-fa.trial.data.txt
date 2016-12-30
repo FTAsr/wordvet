@@ -1,0 +1,34 @@
+piel	دوچرخه
+cine	تلویزیون
+microscopio	بیولوژیست
+Nueva York	واشنگتن
+informática	ریاضی
+teclado	چراغ
+puesta de sol	ریسمان
+ciencia ficción	کمدی
+televisión	سینما
+pelota	والیبال
+cuerda	غروب
+psicólogo	طبیب
+rama	درخت
+juicio	تست
+biólogo	میکروسکوپ
+carne	گوشت گاو
+voleibol	توپ
+nariz	سر
+luz	کیبورد
+coche	اتومبیل
+águila	شاهین
+Washington	نیویورک
+ternera	گوشت
+habitación	ساختمان
+comedia	علمی تخیلی
+automóvil	ماشین
+halcón	عقاب
+árbol	برگ
+examen	آزمایش
+cabeza	بینی
+matemáticas	علوم کامپیوتر
+curandero	روانشناس
+edificio	اتاق
+bicicleta	پوست
