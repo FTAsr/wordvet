@@ -569,20 +569,13 @@ void TrainModel() {
       else for (b = 0; b < layer1_size; b++) fprintf(fow, "%lf ", syn0[a * layer1_size + b]);
       fprintf(fow, "\n");
     }
+	//Save the context vectors
     fprintf(foc, "%lld %lld\n", vocab_size, layer1_size);
     for (a = 0; a < vocab_size; a++) {
       fprintf(foc, "%s ", vocab[a].word);
-      if (binary) for (b = 0; b < layer1_size; b++) fwrite(&syn1[a * layer1_size + b], sizeof(real), 1, foc);
-      else for (b = 0; b < layer1_size; b++) fprintf(foc, "%lf ", syn1[a * layer1_size + b]);
+      if (binary) for (b = 0; b < layer1_size; b++) fwrite(&syn1neg[a * layer1_size + b], sizeof(real), 1, foc);
+      else for (b = 0; b < layer1_size; b++) fprintf(foc, "%lf ", syn1neg[a * layer1_size + b]);
       fprintf(foc, "\n");
-  	}
-    fprintf(fowc, "%lld %lld\n", vocab_size, layer1_size);
-    for (a = 0; a < vocab_size; a++) {
-      fprintf(fowc, "%s ", vocab[a].word);
-	  //if (binary) for (b = 0; b < layer1_size; b++) fwrite( (&syn1[a * layer1_size + b] + &syn0[a * layer1_size + b])/2.0, sizeof(real), 1, fowc);
-      //else 
-	  for (b = 0; b < layer1_size; b++) fprintf(fowc, "%lf ", (syn1[a * layer1_size + b] + syn0[a * layer1_size + b])/2.0);
-      fprintf(fowc, "\n");
   	}
   } else {
     // Run K-means on the word vectors
