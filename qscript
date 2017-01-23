@@ -1,0 +1,13 @@
+#!/bin/bash
+size=300
+window=3
+model=word2vec_${size}_${window}
+model_dir=/N/u/zinkov/Karst/c_code/trunk/$model
+echo $model_dir
+word2vec=/N/u/zinkov/Karst/c_code/trunk/word2vec
+data=/N/u/zinkov/Karst/wiki.shuffled-norm1-phrase1
+mkdir -p /N/u/zinkov/Karst/c_code/trunk/$model
+time $word2vec -train $data -min_count 1 -outputw $model_dir/vectorsW.txt -outputc $model_dir/vectorsC.txt -outputwc $model_dir/vectorsB.txt -cbow 0 -size $size -window $window -negative 1 -hs 1 -sample 0 -threads 20 -binary 0 -iter 1
+/N/u/zinkov/Karst/pigz-2.3.4/pigz $model_dir/vectorsB.txt
+/N/u/zinkov/Karst/pigz-2.3.4/pigz $model_dir/vectorsC.txt
+/N/u/zinkov/Karst/pigz-2.3.4/pigz $model_dir/vectorsW.txt
