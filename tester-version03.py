@@ -45,10 +45,10 @@ def similarities1(wordpairFile, goldScoreFile, modelFiles,  outputFile):
     for index, pair in enumerate(wordpairs):
         words = pair.split('\t')
         print(words)
-        outf.write( words[0] + "\t" + words[1] + "\t" + goldScores[index] + "\t")
+        outf.write( words[0] + "\t" + word1 + "\t" + goldScores[index] + "\t")
         for model in models:
-            if(words[0] in model.vocab and words[1] in model.vocab):
-                score = ( model.similarity(words[0], words[1]) * 2.0 ) + 2
+            if(words[0] in model.vocab and word1 in model.vocab):
+                score = ( model.similarity(words[0], word1) * 2.0 ) + 2
             else:
                 score = 0
             outf.write( str(score) + "\t" )
@@ -90,11 +90,13 @@ def similarities(wordpairFile, modelWord, modelContext,  outputFile, formula = "
         words = pair.split(',')
         #print(words)
         score = 0.0
-        if(words[0] in mw.vocab and words[1] in mw.vocab):
-            w0 = mw[words[0]]
-            w1 = mw[words[1]]
-            c0 = mc[words[0]]
-            c1 = mc[words[1]]
+        word0 = words[0].lower().replace(" ","_")
+        word1 = words[1].lower().replace(" ","_")
+        if(word0 in mw.vocab and word1 in mw.vocab):
+            w0 = mw[word0]
+            w1 = mw[word1]
+            c0 = mc[word0]
+            c1 = mc[word1]
             w0 = normalize(w0[:,np.newaxis], axis=0).ravel()
             w1 = normalize(w1[:,np.newaxis], axis=0).ravel()
             c0 = normalize(c0[:,np.newaxis], axis=0).ravel()
@@ -130,14 +132,14 @@ def similarities(wordpairFile, modelWord, modelContext,  outputFile, formula = "
         outf.write( str(score) + "\n")
             '''
            
-            outf.write( words[0] + "-" + words[1] + "," + words[2] # word pair and the gold similarity score
+            outf.write( word0 + "-" + word1 + "," + words[2] # word pair and the gold similarity score
                      + "," + str(wwScore) 
                      + "," + str(ccScore) 
                      + "," + str(bbScore)
                      + "," + str(wcScore) 
                      + "," + str(cwScore) + "\n" )
         else:
-            print("One of these words missing in our model: " + words[0] + words[1])
+            print("One of these words missing in our model: " + word0 + " " + word1)
     outf.close()
     return similarities
     
@@ -157,10 +159,16 @@ def test(modelRepository, inputPath , outputPath):
     
     modelW = modelRepository + "vectorsW.txt"
     modelC = modelRepository + "vectorsC.txt"
+    print("Loading models...")
     mw =  Word2Vec.load_word2vec_format(modelW, binary=False) 
+    print("Loading models...")
     mc =  Word2Vec.load_word2vec_format(modelC, binary=False)
     
-    
+    ## For faster in the future:
+    ## model = word2vec.Word2Vec.load_word2vec_format('')
+    ## model.save_word2vec_format('', binary=true)
+   
+   
     ### simple formulative approach
     #for formula in ["ww","cc","wc","cw","bb", "v3"]:
     #    similarities(inputPath, mw, mc, outputPath + formula + ".txt" , formula)
@@ -197,6 +205,25 @@ def test(modelRepository, inputPath , outputPath):
     print("Correlation bw BB and gold:")
     print(scipy.stats.pearsonr(dataframe.BB, allLabels))
     
+    ## On trial data
+    dataframe2 = pd.read_csv(outputPath + "SharedTask-Features.csv")
+    print dataframe2.shape
+    allLabels2 = dataframe2.GoldSimilarity
+    allFeatures2 = dataframe2.ix[:,['WW', 'CC','WC','CW','BB']]
+    allFeatures2 = np.array(allFeatures2)
+    p = classifier.predict(allFeatures2)	
+    dataframe2["predicted"] = p
+    print(dataframe2.head(20))
+    print("Correlation bw predicted and gold:")
+    print(scipy.stats.pearsonr(p, allLabels2))
+    print("Correlation bw WW and gold:")
+    print(scipy.stats.pearsonr(dataframe2.WW, allLabels2))
+    print("Correlation bw CC and gold:")
+    print(scipy.stats.pearsonr(dataframe2.CC, allLabels2))
+    print("Correlation bw BB and gold:")
+    print(scipy.stats.pearsonr(dataframe2.BB, allLabels2))
+    
+    
     ''''
     
     classifier = SVR(C=1.0, epsilon=0.2)
@@ -218,7 +245,7 @@ import getopt
            
 def main(argv):
     #modelRepository = "/Users/fa/workspace/repos/_codes/MODELS/text8exp/-cbow0-size100-window5-negative5-hs1-sample0-threads10-binary0-iter1/"
-    modelRepository = "/Users/fa/workspace/repos/_codes/MODELS/Rob/"
+    modelRepository = "/Users/fa/workspace/repos/_codes/MODELS/Rob/word2vec100_6/"
     inputPath = "/Users/fa/workspace/repos/_codes/sharedTask/classification-data/input/"
     outputPath = "/Users/fa/workspace/repos/_codes/sharedTask/classification-data/output/"
     
@@ -245,4 +272,111 @@ def main(argv):
 if __name__ == "__main__":
    main(sys.argv[1:])
    
+
+###OUT OF FUNCTION: FOR COMMANDLINE
+
+
+modelRepository = "/Users/fa/workspace/repos/_codes/MODELS/Rob/word2vec_300_12/"
+inputPath = "/Users/fa/workspace/FA23/wordvet/classification-data/input/"
+outputPath = "/Users/fa/workspace/FA23/wordvet/classification-data/output/"
+   
+   
+modelW = modelRepository + "vectorsW"
+modelC = modelRepository + "vectorsC"
+print("Loading models...")
+mw =  Word2Vec.load_word2vec_format(modelW + ".txt", binary=False) 
+mw.save_word2vec_format(modelW + ".bin", binary=True) 
+print("Loading models...")
+mc =  Word2Vec.load_word2vec_format(modelC + ".txt", binary=False)
+mc.save_word2vec_format(modelC + ".bin", binary=True) 
+
+## For faster in the future:
+## model = word2vec.Word2Vec.load_word2vec_format('')
+## model.save_word2vec_format('', binary=true)
+
+
+### simple formulative approach
+#for formula in ["ww","cc","wc","cw","bb", "v3"]:
+#    similarities(inputPath, mw, mc, outputPath + formula + ".txt" , formula)
+
+### supervised classification approach using simlex data
+## add features using distributional vectors:
+#similarities(inputPath + "SimLex-Gold-Nouns.csv", mw, mc, outputPath + "SimLex-Features-Nouns.csv")
+#similarities(inputPath + "SimLex-Gold.csv", mw, mc, outputPath + "SimLex-Features.csv")
+similarities(inputPath + "McRaeTotal-Gold.csv", mw, mc, outputPath + "McRaeTotal-Features.csv")
+#similarities(inputPath + "Association-Gold.csv", mw, mc, outputPath + "Association-Features.csv")
+similarities(inputPath + "SharedTask-Gold.csv", mw, mc, outputPath + "SharedTask-Features.csv")
+## use features for classification (use simlex data for traing and cross-validation of a svm model)
+dataframe = pd.read_csv(outputPath + "McRaeTotal-Features.csv")
+print dataframe.shape
+allLabels = dataframe.GoldSimilarity
+allFeatures = dataframe.ix[:,['WW', 'CC','WC','CW','BB']]
+allFeatures = np.array(allFeatures)
+
+
+lm1 = smf.ols(formula='GoldSimilarity ~  WW * CC ', data = dataframe).fit()
+print(lm1.params)
+print(lm1.pvalues)
+print(lm1.summary()) 
+lm2 = smf.ols(formula='GoldSimilarity ~  WC * CW ', data = dataframe).fit()
+print(lm2.params)
+print(lm2.pvalues)
+print(lm2.summary()) 
+
+
+
+classifier = LinearRegression(fit_intercept=True, normalize=False, copy_X=True, n_jobs=1)
+classifier.fit(allFeatures, allLabels)
+print(classifier.score(allFeatures, allLabels))
+p = classifier.predict(allFeatures)	
+dataframe["predicted"] = p
+print(dataframe.head(20))
+print("Correlation bw predicted and gold:")
+print(scipy.stats.pearsonr(p, allLabels))
+print(scipy.stats.spearmanr(p, allLabels))
+print("Correlation bw WW and gold:")
+print(scipy.stats.pearsonr(dataframe.WW, allLabels))
+print(scipy.stats.spearmanr(dataframe.WW, allLabels))
+print("Correlation bw CC and gold:")
+print(scipy.stats.pearsonr(dataframe.CC, allLabels))
+print(scipy.stats.spearmanr(dataframe.CC, allLabels))
+print("Correlation bw BB and gold:")
+print(scipy.stats.pearsonr(dataframe.BB, allLabels))
+print(scipy.stats.spearmanr(dataframe.BB, allLabels))
+print("Correlation bw WC and gold:")
+print(scipy.stats.pearsonr(dataframe.WC, allLabels))
+print(scipy.stats.spearmanr(dataframe.WC, allLabels))
+print("Correlation bw CW and gold:")
+print(scipy.stats.pearsonr(dataframe.CW, allLabels))
+print(scipy.stats.spearmanr(dataframe.CW, allLabels))
+
+## On trial data
+dataframe2 = pd.read_csv(outputPath + "SharedTask-Features.csv")
+print dataframe2.shape
+allLabels2 = dataframe2.GoldSimilarity
+allFeatures2 = dataframe2.ix[:,['WW', 'CC','WC','CW','BB']]
+allFeatures2 = np.array(allFeatures2)
+p = classifier.predict(allFeatures2)	
+dataframe2["predicted"] = p
+print(dataframe2.head(20))
+print("Correlation bw predicted and gold:")
+print(scipy.stats.pearsonr(p, allLabels2))
+print(scipy.stats.spearmanr(p, allLabels2))
+print("Correlation bw WW and gold:")
+print(scipy.stats.pearsonr(dataframe2.WW, allLabels2))
+print(scipy.stats.spearmanr(dataframe2.WW, allLabels2))
+print("Correlation bw CC and gold:")
+print(scipy.stats.pearsonr(dataframe2.CC, allLabels2))
+print(scipy.stats.spearmanr(dataframe2.CC, allLabels2))
+print("Correlation bw BB and gold:")
+print(scipy.stats.pearsonr(dataframe2.BB, allLabels2))
+print(scipy.stats.spearmanr(dataframe2.BB, allLabels2))
+print("Correlation bw WC and gold:")
+print(scipy.stats.pearsonr(dataframe2.WC, allLabels2))
+print(scipy.stats.spearmanr(dataframe2.WC, allLabels2))
+print("Correlation bw CW and gold:")
+print(scipy.stats.pearsonr(dataframe2.CW, allLabels2))
+print(scipy.stats.spearmanr(dataframe2.CW, allLabels2))
+
+''''
   
