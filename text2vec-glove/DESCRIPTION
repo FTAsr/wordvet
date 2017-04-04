@@ -1,0 +1,48 @@
+Package: text2vec
+Type: Package
+Version: 0.5.0
+Date: 2016-12-30
+Title: Modern Text Mining Framework for R
+License: GPL (>= 2) | file LICENSE
+Description: Fast and memory-friendly tools for text vectorization, 
+    topic modeling (LDA, LSA), word embeddings (GloVe), similarities. 
+    This package provides a source-agnostic streaming API, which allows researchers 
+    to perform analysis of collections of documents which are larger than available RAM. 
+    All core functions are parallelized to benefit from multicore machines.
+Authors@R: c(person("Dmitriy", "Selivanov", role = c("aut", "cre"),
+    email = "selivanov.dmitriy@gmail.com"))
+Maintainer: Dmitriy Selivanov <selivanov.dmitriy@gmail.com>
+Encoding: UTF-8
+SystemRequirements: GNU make, C++11
+Depends:
+    R (>= 3.2.0),
+    methods
+Imports:
+    Matrix (>= 1.1),
+    Rcpp (>= 0.11),
+    RcppParallel (>= 4.3.14),
+    digest (>= 0.6.8),
+    foreach(>= 1.4.3),
+    data.table(>= 1.9.6),
+    magrittr (>= 1.5),
+    irlba (>= 2.1.2),
+    R6 (>= 2.1.2)
+LinkingTo:
+    Rcpp,
+    RcppParallel,
+    digest, 
+    sparsepp
+Suggests:
+    stringr (>= 1.1.0),
+    doParallel,
+    testthat,
+    covr,
+    knitr,
+    rmarkdown,
+    glmnet,
+    parallel
+URL: http://text2vec.org
+BugReports: https://github.com/dselivanov/text2vec/issues
+VignetteBuilder: knitr
+LazyData: true
+RoxygenNote: 5.0.1
