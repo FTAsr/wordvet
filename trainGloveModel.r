@@ -1,6 +1,6 @@
 
 print("started running trainGloveModel.r")
-library(text2vec, lib.loc = ".")
+library(text2vec-glove, lib.loc = ".")
 
 print("getting commandline arguments")
 ##First read in the arguments listed at the command line
@@ -26,7 +26,7 @@ print(min_count)
 
 
 text8_file = "/Users/fa/workspace/repos/_codes/data/text8"
-corpus = readLines(text8_file, n = 1, warn = FALSE)
+wiki = readLines(text8_file, n = 1, warn = FALSE)
 # Create iterator over tokens
 tokens <- space_tokenizer(wiki)
 # Create vocabulary. Terms will be unigrams (simple words).
