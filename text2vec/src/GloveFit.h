@@ -307,6 +307,6 @@ class GloveFit {
     int FLAG_DO_L1_REGURARIZATION;
     float lambda;
     vector<float> time;
-    vector<vector<float>> u_w_i;
+    vector<vector<float> > u_w_i;
     //vector<float> u_b_i;
 };

@@ -1,29 +1,14 @@
 
+##pre-requisites:
+#library(devtools)
+#load_all("text2vec")
+#install("text2vec")
+#build("text2vec")
+
+
 print("started running trainGloveModel.r")
-library(text2vec-glove, lib.loc = ".")
 
-print("getting commandline arguments")
-##First read in the arguments listed at the command line
-args=(commandArgs(TRUE))
-
-##args is now a list of character vectors
-## First check to see if arguments are passed.
-## Then cycle through each element of the list and evaluate the expressions.
-if(length(args)==0){
-    print("No arguments supplied.")
-    ##supply default values
-    a = 1
-    b = c(1,1,1)
-}else{
-    for(i in 1:length(args)){
-      eval(parse(text=args[[i]]))
-    }
-}
-
-print("printing some parameters")
-print(input)
-print(min_count)
-
+library("text2vec")
 
 text8_file = "/Users/fa/workspace/repos/_codes/data/text8"
 wiki = readLines(text8_file, n = 1, warn = FALSE)
@@ -34,24 +19,32 @@ it = itoken(tokens, progressbar = FALSE)
 vocab <- create_vocabulary(it)
 vocab <- prune_vocabulary(vocab, term_count_min = 5L)
 # Use our filtered vocabulary
-vectorizer <- vocab_vectorizer(vocab, 
-                               # don't vectorize input
-                               grow_dtm = FALSE, 
-                               # use window of 5 for context words
-                               skip_grams_window = 5L)
+vectorizer <- vocab_vectorizer(vocab) 
+                               
 tcm <- create_tcm(it, vectorizer)
 glove = GlobalVectors$new(word_vectors_size = 50, vocabulary = vocab, x_max = 10)
-glove$fit(tcm, n_iter = 20)
-glove = GlobalVectors$new(word_vectors_size = 50, vocabulary = vocab, x_max = 10)
-# `glove` object will be modified by `fit()` call !
-fit(tcm, glove, n_iter = 20)
+glove$fit(tcm, n_iter = 1)
 
-word_vectors <- glove$get_word_vectors()
-context_vectors <- glove$get_context_vectors()
+dd <- glove$dump_model()
+wordVec = dd$w_i
+contextVec = dd$w_j
+listVocab = vocab$vocab[,1]
 
-# test
-berlin <- word_vectors["paris", , drop = FALSE] - 
-  word_vectors["france", , drop = FALSE] + 
-  word_vectors["germany", , drop = FALSE]
-cos_sim = sim2(x = word_vectors, y = berlin, method = "cosine", norm = "l2")
-head(sort(cos_sim[,1], decreasing = TRUE), 5)
+W = cbind(listVocab, wordVec)
+fileConn<-file("vectorsW.txt")
+writeLines(paste(nrow(wordVec), ncol(wordVec)),fileConn )
+close(fileConn)
+write.table(W, file = "vectorsW.txt", append = TRUE, quote = FALSE, sep = " ",
+            eol = "\n", dec = ".", row.names = FALSE,
+            col.names = FALSE, qmethod = c("escape", "double"),
+            fileEncoding = "")
+
+C = cbind(listVocab, contextVec)           
+fileConn<-file("vectorsC.txt")
+writeLines(paste(nrow(contextVec), ncol(contextVec)),fileConn )
+close(fileConn)
+write.table(C, file = "vectorsC.txt", append = TRUE, quote = FALSE, sep = " ",
+            eol = "\n", dec = ".", row.names = FALSE,
+            col.names = FALSE, qmethod = c("escape", "double"),
+            fileEncoding = "")
+
