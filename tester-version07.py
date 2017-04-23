@@ -2,7 +2,7 @@
 
     
 from gensim import corpora, models, similarities, matutils
-from gensim.models import Word2Vec
+from gensim.models import KeyedVectors
 from gensim.models.word2vec import LineSentence
 import matplotlib.pyplot as plt
 import numpy as np
@@ -38,10 +38,10 @@ def similarities(wordpairFile, modelWord, modelContext,  outputFile):
     mc = modelContext
     print("FA: similarity calculation..." )
     
-    outf.write( "Wordpair" + "," + "GoldSimilarityForward" + "," + "GoldSimilarityBackward" # word pair and the gold similarity score
+    outf.write( "Wordpair" + "," + "GoldSimilarity" #Forward" + "," + "GoldSimilarityBackward" # word pair and the gold similarity score
                  + "," + "WW" 
                  + "," + "CC" 
-                 + "," + "AA" 
+                 + "," + "BB" 
                  + "," + "WC" 
                  + "," + "CW" + "\n" )
               
@@ -86,7 +86,7 @@ def similarities(wordpairFile, modelWord, modelContext,  outputFile):
             cwScore = 1 - spatial.distance.cosine(w1, c0)
             bbScore = 1 - spatial.distance.cosine(b0, b1)
           
-            outf.write( word0 + "-" + word1 + "," + words[5] + "," + words[6] # word pair and the gold similarity scores (specialized to nelson data)
+            outf.write( word0 + "-" + word1 + "," + word2 #+ "," + words[5] + "," + words[6] # word pair and the gold similarity scores (specialized to nelson data)
                      + "," + str(wwScore) 
                      + "," + str(ccScore) 
                      + "," + str(bbScore)
@@ -208,7 +208,7 @@ def experiment2(wordpairFile, modelWord, modelContext,  outputFile):
         print("Cue: " + cue)
         newResponses = words[1].lower().split('#')
         print("Responses: " + str(newResponses))
-        if (dictionary.has_key(cue)):
+        if (cue in dictionary):
             responses = dictionary.get(cue)
             responses = list(set().union(newResponses,responses))
             dictionary[cue] = responses
@@ -268,7 +268,7 @@ def experiment2(wordpairFile, modelWord, modelContext,  outputFile):
         result = result + "\tfoundTotalW = " + str(foundTotalW) + "\n"
         result = result + "\tfoundTotalC = " + str(foundTotalC) + "\n"
     outf.close()
-    print result
+    print(result)
     return experiment2
 
     
@@ -292,10 +292,10 @@ def experiment1(modelRepository, inputPath , outputPath):
         modelW = model + "/vectorsW"
         modelC = model + "/vectorsC"
         print("Loading W model...")
-        mw =  Word2Vec.load_word2vec_format(modelW + ".txt", binary=False) 
+        mw =  KeyedVectors.load_word2vec_format(modelW + ".txt", binary=False) 
         mw.save_word2vec_format(modelW + ".bin", binary=True) 
         print("Loading C model...")
-        mc =  Word2Vec.load_word2vec_format(modelC + ".txt", binary=False)
+        mc =  KeyedVectors.load_word2vec_format(modelC + ".txt", binary=False)
         mc.save_word2vec_format(modelC + ".bin", binary=True) 
 
         ## For faster in the future:
@@ -303,21 +303,21 @@ def experiment1(modelRepository, inputPath , outputPath):
         ## model.save_word2vec_format('', binary=true)
 
         ## add features using distributional vectors
-        #similarities(inputPath + "SimLex-Gold.csv", mw, mc, outputPath + "SimLex-Features.csv")
-        #similarities(inputPath + "McRaeTotal-Gold.csv", mw, mc, outputPath + "McRaeTotal-Features.csv")
+        similarities(inputPath + "SimLex-Gold.csv", mw, mc, outputPath + "SimLex-Features.csv")
+        similarities(inputPath + "McRaeTotal-Gold.csv", mw, mc, outputPath + "McRaeTotal-Features.csv")
         outf= open(outputPath + "Result-" + model.replace("/","-") + ".txt" , 'w')
         
         
         ## use features for classification (use simlex data for similarity and mcrae for relatedness)
         print("**** SIMILARITY ****")
         dataframe = pd.read_csv(outputPath + "SimLex-Features.csv")
-        #print dataframe.shape
+        print(dataframe.shape)
         allLabels = dataframe.GoldSimilarity
-        allFeatures = dataframe.ix[:,['WW', 'CC','WC','CW','AA']]
+        allFeatures = dataframe.ix[:,['WW', 'CC','WC','CW']]
         allFeatures = np.array(allFeatures)
         classifier = LinearRegression(fit_intercept=True, normalize=False, copy_X=True, n_jobs=1)
         classifier.fit(allFeatures, allLabels)
-        #print(classifier.score(allFeatures, allLabels))
+        print(classifier.score(allFeatures, allLabels))
         p = classifier.predict(allFeatures)	
         dataframe["predicted"] = p
         mystr = str(dataframe.head(20)) + "\n\n" + \
@@ -325,19 +325,18 @@ def experiment1(modelRepository, inputPath , outputPath):
             "\n Correlation bw WW and gold:" + str(scipy.stats.spearmanr(dataframe.WW, allLabels).correlation) +\
             "\n Correlation bw CC and gold:" + str(scipy.stats.spearmanr(dataframe.CC, allLabels).correlation) +\
             "\n Correlation bw WC and gold:" + str(scipy.stats.spearmanr(dataframe.WC, allLabels).correlation) +\
-            "\n Correlation bw CW and gold:" + str(scipy.stats.spearmanr(dataframe.CW, allLabels).correlation) +\
-            "\n Correlation bw AA and gold:" + str(scipy.stats.spearmanr(dataframe.AA, allLabels).correlation)
-        #print(mystr)
+            "\n Correlation bw CW and gold:" + str(scipy.stats.spearmanr(dataframe.CW, allLabels).correlation) # +\
+            #"\n Correlation bw AA and gold:" + str(scipy.stats.spearmanr(dataframe.AA, allLabels).correlation)
+        print(mystr)
         outf.write(mystr) 
 
 
 
-        '''
         print("**** RELATEDNESS McRae ****")
         dataframe = pd.read_csv(outputPath + "McRaeTotal-Features.csv")
         #print dataframe.shape
         allLabels = dataframe.GoldSimilarity
-        allFeatures = dataframe.ix[:,['WW', 'CC','WC','CW','AA']]
+        allFeatures = dataframe.ix[:,['WW', 'CC','WC','CW']]
         allFeatures = np.array(allFeatures)
         classifier = LinearRegression(fit_intercept=True, normalize=False, copy_X=True, n_jobs=1)
         classifier.fit(allFeatures, allLabels)
@@ -349,12 +348,10 @@ def experiment1(modelRepository, inputPath , outputPath):
             "\n Correlation bw WW and gold:" + str(scipy.stats.spearmanr(dataframe.WW, allLabels).correlation) +\
             "\n Correlation bw CC and gold:" + str(scipy.stats.spearmanr(dataframe.CC, allLabels).correlation) +\
             "\n Correlation bw WC and gold:" + str(scipy.stats.spearmanr(dataframe.WC, allLabels).correlation) +\
-            "\n Correlation bw CW and gold:" + str(scipy.stats.spearmanr(dataframe.CW, allLabels).correlation) +\
-            "\n Correlation bw AA and gold:" + str(scipy.stats.spearmanr(dataframe.AA, allLabels).correlation)
-        #print(mystr)
+            "\n Correlation bw CW and gold:" + str(scipy.stats.spearmanr(dataframe.CW, allLabels).correlation)# +\
+            #"\n Correlation bw AA and gold:" + str(scipy.stats.spearmanr(dataframe.AA, allLabels).correlation)
+        print(mystr)
         outf.write(mystr) 
-        
-        '''
         
         
         print("Current time: " + str(datetime.now().time()))       
@@ -374,11 +371,11 @@ def main(argv):
         print(opts)
         print(args)
     except getopt.GetoptError:
-        print 'test.py -m <modelrepos> -i <inputfile> -o <outputfile(s)>'
+        print('test.py -m <modelrepos> -i <inputfile> -o <outputfile(s)>')
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print 'test.py -m <modelrepos> -i <inputfile> -o <outputfile(s)>'
+            print('test.py -m <modelrepos> -i <inputfile> -o <outputfile(s)>')
             sys.exit()
         elif opt in ("-m", "--mrepos"):
             modelRepository = arg
@@ -397,20 +394,21 @@ if __name__ == "__main__":
 
     ### Experiment 1
     #print("Current time: " + str(datetime.now().time()))
-    #inputPath = "/Users/fa/workspace/FA23/wordvet/classification-data/input/"
-    #outputPath = "/Users/fa/workspace/FA23/wordvet/classification-data/output/"
+    inputPath = "classification-data/input/"
+    outputPath = "classification-data/output/"
     #modelRepository = "/Users/fa/workspace/repos/_codes/MODELS/Rob/Test/"
     #experiment1(modelRepository, inputPath , outputPath)
 
 
     ### Experiment 2
     print("Current time: " + str(datetime.now().time()))
-    modelRepository = "/Users/fa/workspace/repos/_codes/MODELS/Rob/Test/Test/"
-    modelW = Word2Vec.load_word2vec_format(modelRepository + "vectorsW.txt", binary=False) 
-    modelC = Word2Vec.load_word2vec_format(modelRepository + "vectorsC.txt", binary=False)
-    wordpairFile = "/Users/fa/workspace/FA23/wordvet/classification-data/input/McRaeList-Gold.csv"
-    outputFile = "/Users/fa/workspace/FA23/wordvet/classification-data/output/McRaeList-GuessingEvaluation.txt"
-    experiment2(wordpairFile, modelW, modelC,  outputFile)
+    modelRepository = "/data/wordvet/"
+    modelW = KeyedVectors.load_word2vec_format(modelRepository + "vectorsW.txt", binary=False) 
+    modelC = KeyedVectors.load_word2vec_format(modelRepository + "vectorsC.txt", binary=False)
+    wordpairFile = "classification-data/input/McRaeList-Gold.csv"
+    outputFile = "classification-data/output/McRaeList-GuessingEvaluation.txt"
+    experiment1("/data/", inputPath , outputPath)
+    #experiment2(wordpairFile, modelW, modelC,  outputFile)
 
     
   
