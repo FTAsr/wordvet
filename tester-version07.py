@@ -206,7 +206,7 @@ def similaritiesAndRanks(wordpairFile,
     return similarities
 
 
-def experiment2(wordpairFile, modelWord, modelContext,  outputFile):
+def experiment2(wordpairFile, modelWord, modelContext, outputFile):
     print("FA: dictionary of cue-responses is being made")
     wordpairs = open(wordpairFile).read().splitlines()
     dictionary = dict()
@@ -392,6 +392,9 @@ def experiment1(modelRepository, inputPath, outputPath):
                                          allLabels).correlation),
              "Correlation bw CC and gold:"
              + str(scipy.stats.spearmanr(dataframe.CC,
+                                         allLabels).correlation),
+             "Correlation bw BB and gold:"
+             + str(scipy.stats.spearmanr(dataframe.BB,
                                          allLabels).correlation),
              "Correlation bw WC and gold:"
              + str(scipy.stats.spearmanr(dataframe.WC,
