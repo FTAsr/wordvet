@@ -6,6 +6,8 @@ from gensim.models import KeyedVectors
 import numpy as np
 
 import os
+import sys
+import yaml
 
 from scipy import spatial
 from sklearn.preprocessing import normalize
@@ -406,11 +408,16 @@ def experiment1(modelRepository, inputPath, outputPath):
 
 
 if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage:", sys.argv[0], "config.yaml")
+        sys.exit()
+
+    config = yaml.load(open(sys.argv[1]))
     ### Experiment 1
     #print("Current time: " + str(datetime.now().time()))
-    inputPath = "classification-data/input/"
-    outputPath = "classification-data/output/"
-    #modelRepository = "/Users/fa/workspace/repos/_codes/MODELS/Rob/Test/"
+    inputPath = config['input_dirs']
+    outputPath = config['output_dirs']
+    modelRepository = config['model-repository']
     #experiment1(modelRepository, inputPath , outputPath)
     experiment1("/data/", inputPath, outputPath)
 
