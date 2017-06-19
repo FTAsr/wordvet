@@ -6,7 +6,6 @@ from gensim.models import KeyedVectors
 import numpy as np
 
 import os
-import sys
 
 from scipy import spatial
 from sklearn.preprocessing import normalize
@@ -287,139 +286,140 @@ def experiment2(wordpairFile, modelWord, modelContext,  outputFile):
 
 
 def experiment1(modelRepository, inputPath, outputPath):
-    ## model repository is where folders including pretrained vector spaces located. Each vector should include a vectorsW.txt and vectorsC.txt file.
-    ## inputPath includes similarity and relatedness datasets (for ACL we used SimLex.Gold.csv and McRaeTotal-Gold.csv respectively) work on each dataset at a time by commenting out the other.
-    ## outputPath is where the result file (numbers for filling the table in the paper) will be located.
+    """
+    model repository is where folders including pretrained vector
+    spaces located. Each vector should include a vectorsW.txt
+    and vectorsC.txt file.
+
+    inputPath includes similarity and relatedness datasets
+    (for ACL we used SimLex.Gold.csv and McRaeTotal-Gold.csv respectively)
+    work on each dataset at a time by commenting out the other.
+
+    outputPath is where the result file (numbers for filling the
+    table in the paper) will be located.
+    """
     models = list()
     for dirName, dirNames, fileNames in os.walk(modelRepository):
         # print path to all filenames.
         for modelName in dirNames:
             print(os.path.join(dirName, modelName))
             models.append(os.path.join(dirName, modelName))
-               
+
     for model in models:
         print("Current time: " + str(datetime.now().time()))
         print("Loading model from: " + model)
         modelW = model + "/vectorsW"
         modelC = model + "/vectorsC"
         print("Loading W model...")
-        mw =  KeyedVectors.load_word2vec_format(modelW + ".txt", binary=False) 
-        mw.save_word2vec_format(modelW + ".bin", binary=True) 
+        mw = KeyedVectors.load_word2vec_format(modelW + ".txt", binary=False)
+        mw.save_word2vec_format(modelW + ".bin", binary=True)
         print("Loading C model...")
-        mc =  KeyedVectors.load_word2vec_format(modelC + ".txt", binary=False)
-        mc.save_word2vec_format(modelC + ".bin", binary=True) 
+        mc = KeyedVectors.load_word2vec_format(modelC + ".txt", binary=False)
+        mc.save_word2vec_format(modelC + ".bin", binary=True)
 
         ## For faster in the future:
         ## model = word2vec.Word2Vec.load_word2vec_format('')
         ## model.save_word2vec_format('', binary=true)
 
         ## add features using distributional vectors
-        similarities(inputPath + "SimLex-Gold.csv", mw, mc, outputPath + "SimLex-Features.csv")
-        similarities(inputPath + "McRaeTotal-Gold.csv", mw, mc, outputPath + "McRaeTotal-Features.csv")
-        outf= open(outputPath + "Result-" + model.replace("/","-") + ".txt" , 'w')
-        
-        
-        ## use features for classification (use simlex data for similarity and mcrae for relatedness)
+        similarities(inputPath + "SimLex-Gold.csv",
+                     mw,
+                     mc,
+                     outputPath + "SimLex-Features.csv")
+        similarities(inputPath + "McRaeTotal-Gold.csv",
+                     mw,
+                     mc,
+                     outputPath + "McRaeTotal-Features.csv")
+        outf = open(outputPath + "Result-"
+                    + model.replace("/", "-")
+                    + ".txt",
+                    'w')
+        # use features for classification (use simlex data for
+        # similarity and mcrae for relatedness)
         print("**** SIMILARITY ****")
         dataframe = pd.read_csv(outputPath + "SimLex-Features.csv")
         print(dataframe.shape)
         allLabels = dataframe.GoldSimilarity
-        allFeatures = dataframe.ix[:,['WW', 'CC','WC','CW']]
+        allFeatures = dataframe.ix[:, ['WW', 'CC', 'WC', 'CW']]
         allFeatures = np.array(allFeatures)
-        classifier = LinearRegression(fit_intercept=True, normalize=False, copy_X=True, n_jobs=1)
+        classifier = LinearRegression(fit_intercept=True,
+                                      normalize=False,
+                                      copy_X=True,
+                                      n_jobs=1)
         classifier.fit(allFeatures, allLabels)
         print(classifier.score(allFeatures, allLabels))
-        p = classifier.predict(allFeatures)	
+        p = classifier.predict(allFeatures)
         dataframe["predicted"] = p
-        mystr = str(dataframe.head(20)) + "\n\n" + \
-            "\n Correlation bw AllReg and gold:" + str(scipy.stats.spearmanr(p, allLabels)) +\
-            "\n Correlation bw WW and gold:" + str(scipy.stats.spearmanr(dataframe.WW, allLabels).correlation) +\
-            "\n Correlation bw CC and gold:" + str(scipy.stats.spearmanr(dataframe.CC, allLabels).correlation) +\
-            "\n Correlation bw WC and gold:" + str(scipy.stats.spearmanr(dataframe.WC, allLabels).correlation) +\
-            "\n Correlation bw CW and gold:" + str(scipy.stats.spearmanr(dataframe.CW, allLabels).correlation) # +\
-            #"\n Correlation bw AA and gold:" + str(scipy.stats.spearmanr(dataframe.AA, allLabels).correlation)
+        mystr = str(dataframe.head(20)) + "\n\n"
+        mystr = mystr + "\n ".join(
+            ["Correlation bw AllReg and gold:"
+             + str(scipy.stats.spearmanr(p, allLabels)),
+             "Correlation bw WW and gold:"
+             + str(scipy.stats.spearmanr(dataframe.WW,
+                                         allLabels).correlation),
+             "Correlation bw CC and gold:"
+             + str(scipy.stats.spearmanr(dataframe.CC,
+                                         allLabels).correlation),
+             "Correlation bw WC and gold:"
+             + str(scipy.stats.spearmanr(dataframe.WC,
+                                         allLabels).correlation),
+             "Correlation bw CW and gold:"
+             + str(scipy.stats.spearmanr(dataframe.CW,
+                                         allLabels).correlation)])
         print(mystr)
-        outf.write(mystr) 
-
-
+        outf.write(mystr)
 
         print("**** RELATEDNESS McRae ****")
         dataframe = pd.read_csv(outputPath + "McRaeTotal-Features.csv")
         #print dataframe.shape
         allLabels = dataframe.GoldSimilarity
-        allFeatures = dataframe.ix[:,['WW', 'CC','WC','CW']]
+        allFeatures = dataframe.ix[:, ['WW', 'CC', 'WC', 'CW']]
         allFeatures = np.array(allFeatures)
-        classifier = LinearRegression(fit_intercept=True, normalize=False, copy_X=True, n_jobs=1)
+        classifier = LinearRegression(fit_intercept=True,
+                                      normalize=False,
+                                      copy_X=True,
+                                      n_jobs=1)
         classifier.fit(allFeatures, allLabels)
         #print(classifier.score(allFeatures, allLabels))
-        p = classifier.predict(allFeatures)	
+        p = classifier.predict(allFeatures)
         dataframe["predicted"] = p
-        mystr = str(dataframe.head(20)) + "\n\n" + \
-            "\n Correlation bw AllReg and gold:" + str(scipy.stats.spearmanr(p, allLabels)) +\
-            "\n Correlation bw WW and gold:" + str(scipy.stats.spearmanr(dataframe.WW, allLabels).correlation) +\
-            "\n Correlation bw CC and gold:" + str(scipy.stats.spearmanr(dataframe.CC, allLabels).correlation) +\
-            "\n Correlation bw WC and gold:" + str(scipy.stats.spearmanr(dataframe.WC, allLabels).correlation) +\
-            "\n Correlation bw CW and gold:" + str(scipy.stats.spearmanr(dataframe.CW, allLabels).correlation)# +\
-            #"\n Correlation bw AA and gold:" + str(scipy.stats.spearmanr(dataframe.AA, allLabels).correlation)
+        mystr = str(dataframe.head(20)) + "\n\n"
+        mystr = mystr + "\n ".join(
+            ["Correlation bw AllReg and gold:"
+             + str(scipy.stats.spearmanr(p, allLabels)),
+             "Correlation bw WW and gold:"
+             + str(scipy.stats.spearmanr(dataframe.WW,
+                                         allLabels).correlation),
+             "Correlation bw CC and gold:"
+             + str(scipy.stats.spearmanr(dataframe.CC,
+                                         allLabels).correlation),
+             "Correlation bw WC and gold:"
+             + str(scipy.stats.spearmanr(dataframe.WC,
+                                         allLabels).correlation),
+             "Correlation bw CW and gold:"
+             + str(scipy.stats.spearmanr(dataframe.CW,
+                                         allLabels).correlation)])
         print(mystr)
-        outf.write(mystr) 
-        
-        
-        print("Current time: " + str(datetime.now().time()))       
+        outf.write(mystr)
+        print("Current time:", str(datetime.now().time()))
         outf.close()
     return experiment1
-    
- 
-import getopt         
-           
-def main(argv):
-    modelRepository = "/Users/fa/workspace/repos/_codes/MODELS/Rob/"
-    inputPath = "/Users/fa/workspace/repos/_codes/sharedTask/classification-data/input/"
-    outputPath = "/Users/fa/workspace/repos/_codes/sharedTask/classification-data/output/"
-    
-    try:
-        opts, args = getopt.getopt(argv,"hm:i:o:",["mrepos=","ifile=","ofile="])
-        print(opts)
-        print(args)
-    except getopt.GetoptError:
-        print('test.py -m <modelrepos> -i <inputfile> -o <outputfile(s)>')
-        sys.exit(2)
-    for opt, arg in opts:
-        if opt == '-h':
-            print('test.py -m <modelrepos> -i <inputfile> -o <outputfile(s)>')
-            sys.exit()
-        elif opt in ("-m", "--mrepos"):
-            modelRepository = arg
-        elif opt in ("-i", "--ifile"):
-            inputfile = arg
-        elif opt in ("-o", "--ofile"):
-            outputfile = arg
-            
-    
-    experiment1(modelRepository, inputPath , outputPath)
-    
+
 
 if __name__ == "__main__":
-    #main(sys.argv[1:])
-   
-
     ### Experiment 1
     #print("Current time: " + str(datetime.now().time()))
     inputPath = "classification-data/input/"
     outputPath = "classification-data/output/"
     #modelRepository = "/Users/fa/workspace/repos/_codes/MODELS/Rob/Test/"
     #experiment1(modelRepository, inputPath , outputPath)
-
+    experiment1("/data/", inputPath, outputPath)
 
     ### Experiment 2
-    print("Current time: " + str(datetime.now().time()))
+    print("Current time: ", str(datetime.now().time()))
     modelRepository = "/data/wordvet/"
-    modelW = KeyedVectors.load_word2vec_format(modelRepository + "vectorsW.txt", binary=False) 
+    modelW = KeyedVectors.load_word2vec_format(modelRepository + "vectorsW.txt", binary=False)
     modelC = KeyedVectors.load_word2vec_format(modelRepository + "vectorsC.txt", binary=False)
     wordpairFile = "classification-data/input/McRaeList-Gold.csv"
     outputFile = "classification-data/output/McRaeList-GuessingEvaluation.txt"
-    experiment1("/data/", inputPath , outputPath)
-    #experiment2(wordpairFile, modelW, modelC,  outputFile)
-
-    
-  
+    #experiment2(wordpairFile, modelW, modelC, outputFile)
