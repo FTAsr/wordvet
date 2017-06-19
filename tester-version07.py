@@ -25,7 +25,6 @@ def similarities(wordpairFile, modelWord, modelContext, outputFile):
     print("FA: similarity calculation...")
     outf.write("Wordpair"
                + "," + "GoldSimilarity"
-               + "," + "GoldSimilarityBackward"
                + "," + "WW"
                + "," + "CC"
                + "," + "BB"
