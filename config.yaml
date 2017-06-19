@@ -1,0 +1,3 @@
+model_repository: /data
+input_dirs: classification-data/input/
+output_dirs: classification-data/output/
