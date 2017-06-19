@@ -1,0 +1,6 @@
+pandas==0.16.0
+gensim==0.8.8
+numpy==1.11.0
+scipy==0.15.1
+scikit_learn==0.18.1
+PyYAML==3.12
