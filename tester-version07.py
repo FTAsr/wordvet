@@ -16,7 +16,7 @@ import scipy
 from datetime import datetime
 
 
-def similarities(wordpairFile, modelWord, modelContext,  outputFile):
+def similarities(wordpairFile, modelWord, modelContext, outputFile):
     outf = open(outputFile, 'w')
     mw = modelWord
     mc = modelContext
@@ -31,7 +31,6 @@ def similarities(wordpairFile, modelWord, modelContext,  outputFile):
                + "," + "CW"
                + "\n")
 
-    #wordpairs = [line.rstrip('\n') for line in open(wordpairFile)]
     wordpairs = open(wordpairFile).read().splitlines()
     for index, pair in enumerate(wordpairs):
         words = pair.split(',')
@@ -418,8 +417,10 @@ if __name__ == "__main__":
     ### Experiment 2
     print("Current time: ", str(datetime.now().time()))
     modelRepository = "/data/wordvet/"
-    modelW = KeyedVectors.load_word2vec_format(modelRepository + "vectorsW.txt", binary=False)
-    modelC = KeyedVectors.load_word2vec_format(modelRepository + "vectorsC.txt", binary=False)
+    mwFile = modelRepository + "vectorsW.txt"
+    mcFile = modelRepository + "vectorsC.txt"
+    modelW = KeyedVectors.load_word2vec_format(mwFile, binary=False)
+    modelC = KeyedVectors.load_word2vec_format(mcFile, binary=False)
     wordpairFile = "classification-data/input/McRaeList-Gold.csv"
     outputFile = "classification-data/output/McRaeList-GuessingEvaluation.txt"
     #experiment2(wordpairFile, modelW, modelC, outputFile)
