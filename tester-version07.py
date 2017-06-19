@@ -80,10 +80,10 @@ def similarities(wordpairFile, modelWord, modelContext, outputFile):
                        + "," + str(wcScore)
                        + "," + str(cwScore)
                        + "\n")
-        else:
-            print("One of these words missing in our model:",
-                  word0,
-                  word1)
+        # else:
+        #     print("One of these words missing in our model:",
+        #           word0,
+        #           word1)
     outf.close()
     return similarities
 
