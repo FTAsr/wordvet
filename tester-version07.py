@@ -417,7 +417,7 @@ if __name__ == "__main__":
     #print("Current time: " + str(datetime.now().time()))
     inputPath = config['input_dirs']
     outputPath = config['output_dirs']
-    modelRepository = config['model-repository']
+    modelRepository = config['model_repository']
     #experiment1(modelRepository, inputPath , outputPath)
     experiment1("/data/", inputPath, outputPath)
 
