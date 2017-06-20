@@ -339,7 +339,7 @@ def experiment1(modelRepository, inputPath, outputPath):
             models.append(os.path.join(dirName, modelName))
 
     for model in models:
-        print("Current time: " + str(datetime.now().time()))
+        print("Current time:", str(datetime.now().time()))
         print("Loading model from: " + model)
         modelW = model + "/vectorsW"
         modelC = model + "/vectorsC"
