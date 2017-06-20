@@ -285,6 +285,39 @@ def experiment2(wordpairFile, modelWord, modelContext, outputFile):
     return experiment2
 
 
+def coorWithGold(feature_file):
+    dataframe = pd.read_csv(feature_file)
+    print(dataframe.shape)
+    allLabels = dataframe.GoldSimilarity
+    allFeatures = dataframe.ix[:, ['WW', 'CC', 'WC', 'CW']]
+    allFeatures = np.array(allFeatures)
+    classifier = LinearRegression(fit_intercept=True,
+                                  normalize=False,
+                                  copy_X=True,
+                                  n_jobs=1)
+    classifier.fit(allFeatures, allLabels)
+    print(classifier.score(allFeatures, allLabels))
+    p = classifier.predict(allFeatures)
+    dataframe["predicted"] = p
+    mystr = str(dataframe.head(20)) + "\n\n"
+    mystr = mystr + "\n ".join(
+        ["Correlation bw AllReg and gold:"
+         + str(scipy.stats.spearmanr(p, allLabels)),
+         "Correlation bw WW and gold:"
+         + str(scipy.stats.spearmanr(dataframe.WW,
+                                     allLabels).correlation),
+         "Correlation bw CC and gold:"
+         + str(scipy.stats.spearmanr(dataframe.CC,
+                                     allLabels).correlation),
+         "Correlation bw WC and gold:"
+         + str(scipy.stats.spearmanr(dataframe.WC,
+                                     allLabels).correlation),
+         "Correlation bw CW and gold:"
+         + str(scipy.stats.spearmanr(dataframe.CW,
+                                     allLabels).correlation)])
+    return mystr
+
+
 def experiment1(modelRepository, inputPath, outputPath):
     """
     model repository is where folders including pretrained vector
@@ -321,15 +354,6 @@ def experiment1(modelRepository, inputPath, outputPath):
         ## model = word2vec.Word2Vec.load_word2vec_format('')
         ## model.save_word2vec_format('', binary=true)
 
-        ## add features using distributional vectors
-        similarities(inputPath + "SimLex-Gold.csv",
-                     mw,
-                     mc,
-                     outputPath + "SimLex-Features.csv")
-        similarities(inputPath + "McRaeTotal-Gold.csv",
-                     mw,
-                     mc,
-                     outputPath + "McRaeTotal-Features.csv")
         outf = open(outputPath + "Result-"
                     + model.replace("/", "-")
                     + ".txt",
@@ -337,73 +361,25 @@ def experiment1(modelRepository, inputPath, outputPath):
         # use features for classification (use simlex data for
         # similarity and mcrae for relatedness)
         print("**** SIMILARITY ****")
-        dataframe = pd.read_csv(outputPath + "SimLex-Features.csv")
-        print(dataframe.shape)
-        allLabels = dataframe.GoldSimilarity
-        allFeatures = dataframe.ix[:, ['WW', 'CC', 'WC', 'CW']]
-        allFeatures = np.array(allFeatures)
-        classifier = LinearRegression(fit_intercept=True,
-                                      normalize=False,
-                                      copy_X=True,
-                                      n_jobs=1)
-        classifier.fit(allFeatures, allLabels)
-        print(classifier.score(allFeatures, allLabels))
-        p = classifier.predict(allFeatures)
-        dataframe["predicted"] = p
-        mystr = str(dataframe.head(20)) + "\n\n"
-        mystr = mystr + "\n ".join(
-            ["Correlation bw AllReg and gold:"
-             + str(scipy.stats.spearmanr(p, allLabels)),
-             "Correlation bw WW and gold:"
-             + str(scipy.stats.spearmanr(dataframe.WW,
-                                         allLabels).correlation),
-             "Correlation bw CC and gold:"
-             + str(scipy.stats.spearmanr(dataframe.CC,
-                                         allLabels).correlation),
-             "Correlation bw WC and gold:"
-             + str(scipy.stats.spearmanr(dataframe.WC,
-                                         allLabels).correlation),
-             "Correlation bw CW and gold:"
-             + str(scipy.stats.spearmanr(dataframe.CW,
-                                         allLabels).correlation)])
+        ## add features using distributional vectors
+        similarities(inputPath + "SimLex-Gold.csv",
+                     mw,
+                     mc,
+                     outputPath + "SimLex-Features.csv")
+
+        mystr = coorWithGold(outputPath + "SimLex-Features.csv")
         print(mystr)
         outf.write(mystr)
 
         print("**** RELATEDNESS McRae ****")
-        dataframe = pd.read_csv(outputPath + "McRaeTotal-Features.csv")
-        #print dataframe.shape
-        allLabels = dataframe.GoldSimilarity
-        allFeatures = dataframe.ix[:, ['WW', 'CC', 'WC', 'CW']]
-        allFeatures = np.array(allFeatures)
-        classifier = LinearRegression(fit_intercept=True,
-                                      normalize=False,
-                                      copy_X=True,
-                                      n_jobs=1)
-        classifier.fit(allFeatures, allLabels)
-        #print(classifier.score(allFeatures, allLabels))
-        p = classifier.predict(allFeatures)
-        dataframe["predicted"] = p
-        mystr = str(dataframe.head(20)) + "\n\n"
-        mystr = mystr + "\n ".join(
-            ["Correlation bw AllReg and gold:"
-             + str(scipy.stats.spearmanr(p, allLabels)),
-             "Correlation bw WW and gold:"
-             + str(scipy.stats.spearmanr(dataframe.WW,
-                                         allLabels).correlation),
-             "Correlation bw CC and gold:"
-             + str(scipy.stats.spearmanr(dataframe.CC,
-                                         allLabels).correlation),
-             "Correlation bw BB and gold:"
-             + str(scipy.stats.spearmanr(dataframe.BB,
-                                         allLabels).correlation),
-             "Correlation bw WC and gold:"
-             + str(scipy.stats.spearmanr(dataframe.WC,
-                                         allLabels).correlation),
-             "Correlation bw CW and gold:"
-             + str(scipy.stats.spearmanr(dataframe.CW,
-                                         allLabels).correlation)])
+        similarities(inputPath + "McRaeTotal-Gold.csv",
+                     mw,
+                     mc,
+                     outputPath + "McRaeTotal-Features.csv")
+        mystr = coorWithGold(outputPath + "McRaeTotal-Features.csv")
         print(mystr)
         outf.write(mystr)
+
         print("Current time:", str(datetime.now().time()))
         outf.close()
     return experiment1
