@@ -282,7 +282,7 @@ def experiment2(wordpairFile, modelWord, modelContext, outputFile):
             print("\tfoundTotalC =", str(foundTotalC))
     outf.close()
     print(result)
-    return experiment2
+    return result
 
 
 def coorWithGold(feature_file):
@@ -393,7 +393,7 @@ if __name__ == "__main__":
     config = yaml.load(open(sys.argv[1]))
     ### Experiment 1
     print("Quantitative experiments")
-    #print("Current time: " + str(datetime.now().time()))
+    print("Current time: " + str(datetime.now().time()))
     inputPath = config['input_dirs']
     outputPath = config['output_dirs']
     modelRepository = config['model_repository']
