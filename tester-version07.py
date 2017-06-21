@@ -289,7 +289,7 @@ def coorWithGold(feature_file):
     dataframe = pd.read_csv(feature_file)
     print(dataframe.shape)
     allLabels = dataframe.GoldSimilarity
-    allFeatures = dataframe.ix[:, ['WW', 'CC', 'WC', 'CW']]
+    allFeatures = dataframe.ix[:, ['WW', 'CC', 'BB', 'WC', 'CW']]
     allFeatures = np.array(allFeatures)
     classifier = LinearRegression(fit_intercept=True,
                                   normalize=False,
@@ -308,6 +308,9 @@ def coorWithGold(feature_file):
                                      allLabels).correlation),
          "Correlation bw CC and gold:"
          + str(scipy.stats.spearmanr(dataframe.CC,
+                                     allLabels).correlation),
+         "Correlation bw AA and gold:"
+         + str(scipy.stats.spearmanr(dataframe.BB,
                                      allLabels).correlation),
          "Correlation bw WC and gold:"
          + str(scipy.stats.spearmanr(dataframe.WC,
@@ -409,4 +412,4 @@ if __name__ == "__main__":
     modelC = KeyedVectors.load_word2vec_format(mcFile, binary=False)
     wordpairFile = "classification-data/input/McRaeList-Gold.csv"
     outputFile = "classification-data/output/McRaeList-GuessingEvaluation.txt"
-    experiment2(wordpairFile, modelW, modelC, outputFile)
+    #experiment2(wordpairFile, modelW, modelC, outputFile)
