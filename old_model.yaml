@@ -1,0 +1,9 @@
+min_count: 1
+cbow: 0
+negative: 1
+hs: 1
+sample: 0
+threads: 20
+binary: 0
+iter: 1
+
