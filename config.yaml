@@ -8,6 +8,7 @@ base_model:
     min_count: 5
     cbow: 0
     negative: 5
+    iter: 5
 
 models:
    - model_200_6
