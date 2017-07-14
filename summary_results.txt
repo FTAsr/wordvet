@@ -1,13 +1,137 @@
 Quantitative experiments
-Current time: 13:17:59.232039
+Current time: 23:13:40.168793
+/data/model_100_3
 /data/model_300_3
 /data/model_300_10
+/data/model_200_3
+/data/model_100_10
 /data/model_200_10
 /data/model_200_6
 /data/model_200_test
 /data/model_300_6
 /data/model_100_6
-Current time: 13:17:59.232224
+Current time: 23:13:40.169023
+Loading model from: /data/model_100_3
+Loading W model...
+Loading C model...
+**** SIMILARITY ****
+FA: similarity calculation...
+0 pairs processed!
+['old', 'new', '1.58']
+word0 = old
+word1 = new
+(999, 7)
+0.152827577953
+             Wordpair  GoldSimilarity        WW        CC        BB        WC  \
+0             old-new            1.58  0.522205  0.373894  0.385266  0.039523   
+1   smart-intelligent            9.20  0.716963  0.719010  0.681296  0.214846   
+2      hard-difficult            8.77  0.777373  0.779869  0.707146  0.069549   
+3      happy-cheerful            9.55  0.754933  0.780129  0.697598  0.114055   
+4           hard-easy            0.95  0.717029  0.706430  0.613928  0.006176   
+5          fast-rapid            8.75  0.721021  0.687495  0.634250  0.167547   
+6          happy-glad            9.17  0.787527  0.832262  0.754387  0.054277   
+7          short-long            1.23  0.816958  0.750913  0.743782  0.274571   
+8         stupid-dumb            9.58  0.851837  0.873144  0.815431  0.221244   
+9       weird-strange            8.93  0.848358  0.880608  0.827968  0.232598   
+10        wide-narrow            1.03  0.821398  0.820244  0.774729  0.211421   
+11          bad-awful            8.42  0.804622  0.807966  0.775900  0.107888   
+12     easy-difficult            0.58  0.782740  0.752656  0.727013  0.110780   
+13       bad-terrible            7.78  0.821174  0.829884  0.752104  0.089498   
+14        hard-simple            1.38  0.629989  0.657439  0.523206  0.018159   
+15         smart-dumb            0.55  0.653402  0.684531  0.562147  0.052515   
+16       insane-crazy            9.57  0.663069  0.663947  0.549115  0.055555   
+17          happy-mad            0.95  0.584062  0.643718  0.481779 -0.019967   
+18         large-huge            9.47  0.850188  0.825213  0.786904  0.097059   
+19         hard-tough            8.05  0.788775  0.778788  0.729189  0.145986   
+
+          CW  predicted  
+0  -0.004345   4.457689  
+1   0.182170   5.470829  
+2   0.067187   5.743228  
+3   0.159060   5.441801  
+4   0.072031   5.172542  
+5   0.192288   5.338943  
+6   0.114227   5.612191  
+7   0.224038   6.192258  
+8   0.242271   6.119065  
+9   0.178430   6.307355  
+10  0.208298   6.025103  
+11  0.202985   5.684655  
+12  0.064291   5.965149  
+13  0.150658   5.823457  
+14  0.023296   4.732602  
+15  0.104264   4.754210  
+16  0.058311   4.971515  
+17 -0.000602   4.368429  
+18  0.156664   6.070063  
+19  0.182147   5.725586  
+
+Correlation bw AllReg and gold:SpearmanrResult(correlation=0.37080609278235965, pvalue=6.4161961917756045e-34)
+ Correlation bw WW and gold:0.363456961432
+ Correlation bw CC and gold:0.345450985827
+ Correlation bw AA and gold:0.353295781707
+ Correlation bw WC and gold:0.310444584395
+ Correlation bw CW and gold:0.281347475364
+**** RELATEDNESS McRae ****
+FA: similarity calculation...
+0 pairs processed!
+['AIRPLANE', 'pilot', '88', '']
+word0 = airplane
+word1 = pilot
+(1106, 7)
+0.059819435562
+              Wordpair  GoldSimilarity        WW        CC        BB  \
+0       airplane-pilot              88  0.683632  0.672685  0.612769   
+1      airplane-flight              77  0.749441  0.761695  0.719321   
+2         airplane-sky              61  0.411954  0.486167  0.277704   
+3       airplane-cloud              41  0.344760  0.458048  0.198451   
+4     airplane-airport              41  0.591822  0.514531  0.452512   
+5      airplane-travel              32  0.396036  0.403699  0.307169   
+6       airplane-wings              30  0.507105  0.469366  0.375235   
+7   airplane-passenger              24  0.656625  0.673467  0.590483   
+8        airplane-food              18  0.326192  0.331305  0.107712   
+9       airplane-seats              17  0.306912  0.288167  0.130310   
+10     airplane-runway              15  0.636363  0.618813  0.529469   
+11    airplane-luggage              14  0.596704  0.652692  0.528467   
+12          apple-tree              73  0.520600  0.489300  0.375477   
+13           apple-red              40  0.410498  0.389053  0.303161   
+14           apple-pie              37  0.500092  0.575223  0.419632   
+15        apple-orange              32  0.560971  0.517998  0.454160   
+16         apple-fruit              32  0.552059  0.536215  0.434665   
+17          apple-worm              29  0.564787  0.590322  0.436914   
+18        apple-banana              24  0.599511  0.602569  0.505632   
+19          apple-core              23  0.378852  0.374812  0.211984   
+
+          WC        CW  predicted  
+0   0.187730  0.136781  55.367828  
+1   0.273711  0.183476  61.502527  
+2  -0.064167 -0.079066  32.682250  
+3  -0.140570 -0.115015  23.523888  
+4   0.023696  0.047782  44.644376  
+5   0.032244 -0.027188  37.633280  
+6   0.038381  0.001552  45.025502  
+7   0.156994  0.134194  49.870987  
+8  -0.153011 -0.204360  35.224421  
+9  -0.093598 -0.138787  34.115360  
+10  0.074541  0.081355  46.613806  
+11  0.087577  0.086168  41.905381  
+12  0.058452  0.008587  48.462779  
+13  0.061380  0.002070  41.678093  
+14  0.036905  0.061547  34.261736  
+15  0.094649  0.093382  45.632192  
+16  0.067647  0.042994  45.922697  
+17  0.011494  0.043451  39.689874  
+18  0.080894  0.123338  41.553604  
+19 -0.073812 -0.107987  36.192442  
+
+Correlation bw AllReg and gold:SpearmanrResult(correlation=0.19773020119938606, pvalue=3.2671635496916651e-11)
+ Correlation bw WW and gold:0.178329299878
+ Correlation bw CC and gold:0.153756090592
+ Correlation bw AA and gold:0.171588102983
+ Correlation bw WC and gold:0.188731281821
+ Correlation bw CW and gold:0.162262807496
+Current time: 23:20:20.344687
+Current time: 23:20:20.344727
 Loading model from: /data/model_300_3
 Loading W model...
 Loading C model...
@@ -127,8 +251,8 @@ Correlation bw AllReg and gold:SpearmanrResult(correlation=0.24471298396768196, 
  Correlation bw AA and gold:0.207177011707
  Correlation bw WC and gold:0.238727141468
  Correlation bw CW and gold:0.195237066341
-Current time: 13:36:10.446172
-Current time: 13:36:10.446216
+Current time: 23:39:28.324647
+Current time: 23:39:28.324706
 Loading model from: /data/model_300_10
 Loading W model...
 Loading C model...
@@ -248,8 +372,250 @@ Correlation bw AllReg and gold:SpearmanrResult(correlation=0.27447051532046113, 
  Correlation bw AA and gold:0.223629291794
  Correlation bw WC and gold:0.261493458218
  Correlation bw CW and gold:0.203478719762
-Current time: 13:54:25.371621
-Current time: 13:54:25.371684
+Current time: 23:58:39.309071
+Current time: 23:58:39.309130
+Loading model from: /data/model_200_3
+Loading W model...
+Loading C model...
+**** SIMILARITY ****
+FA: similarity calculation...
+0 pairs processed!
+['old', 'new', '1.58']
+word0 = old
+word1 = new
+(999, 7)
+0.200701780948
+             Wordpair  GoldSimilarity        WW        CC        BB        WC  \
+0             old-new            1.58  0.467199  0.396629  0.396271  0.044310   
+1   smart-intelligent            9.20  0.677882  0.669880  0.650009  0.231775   
+2      hard-difficult            8.77  0.708408  0.712079  0.645340  0.092906   
+3      happy-cheerful            9.55  0.690130  0.711194  0.645088  0.140124   
+4           hard-easy            0.95  0.639551  0.648995  0.570277  0.055407   
+5          fast-rapid            8.75  0.624526  0.615768  0.566830  0.168112   
+6          happy-glad            9.17  0.712070  0.750996  0.676374  0.057373   
+7          short-long            1.23  0.717058  0.674357  0.672681  0.218788   
+8         stupid-dumb            9.58  0.786646  0.814091  0.768882  0.247600   
+9       weird-strange            8.93  0.791652  0.816685  0.765201  0.244255   
+10        wide-narrow            1.03  0.704591  0.719089  0.678133  0.192766   
+11          bad-awful            8.42  0.685556  0.726993  0.647971  0.081444   
+12     easy-difficult            0.58  0.694677  0.703308  0.632071  0.075523   
+13       bad-terrible            7.78  0.695730  0.745997  0.629147  0.064004   
+14        hard-simple            1.38  0.437655  0.472805  0.346300 -0.005344   
+15         smart-dumb            0.55  0.553177  0.596972  0.478728  0.058613   
+16       insane-crazy            9.57  0.582360  0.612583  0.510749  0.078724   
+17          happy-mad            0.95  0.477303  0.537863  0.402261 -0.007316   
+18         large-huge            9.47  0.809649  0.794226  0.740158  0.023482   
+19         hard-tough            8.05  0.662768  0.700134  0.620523  0.139440   
+
+          CW  predicted  
+0   0.020845   5.226061  
+1   0.223429   6.084389  
+2   0.077290   6.265413  
+3   0.160837   5.847292  
+4   0.069135   5.624505  
+5   0.200750   5.544152  
+6   0.120377   5.788138  
+7   0.178729   6.770457  
+8   0.255850   6.509233  
+9   0.202160   6.727723  
+10  0.214794   6.005175  
+11  0.157518   5.501147  
+12  0.054637   6.154304  
+13  0.105197   5.567542  
+14 -0.010280   3.982950  
+15  0.113520   4.522956  
+16  0.084610   5.020731  
+17  0.037254   3.906992  
+18  0.083837   6.956000  
+19  0.135875   5.591601  
+
+Correlation bw AllReg and gold:SpearmanrResult(correlation=0.44131568538098331, pvalue=7.24206335850028e-49)
+ Correlation bw WW and gold:0.419661665329
+ Correlation bw CC and gold:0.386916272719
+ Correlation bw AA and gold:0.404245917201
+ Correlation bw WC and gold:0.337831697834
+ Correlation bw CW and gold:0.310889313241
+**** RELATEDNESS McRae ****
+FA: similarity calculation...
+0 pairs processed!
+['AIRPLANE', 'pilot', '88', '']
+word0 = airplane
+word1 = pilot
+(1106, 7)
+0.06774558373
+              Wordpair  GoldSimilarity        WW        CC        BB  \
+0       airplane-pilot              88  0.606014  0.647761  0.579575   
+1      airplane-flight              77  0.724424  0.742416  0.701272   
+2         airplane-sky              61  0.374300  0.429666  0.278521   
+3       airplane-cloud              41  0.338393  0.416858  0.218117   
+4     airplane-airport              41  0.523582  0.498396  0.428075   
+5      airplane-travel              32  0.370245  0.416565  0.325083   
+6       airplane-wings              30  0.487158  0.479308  0.408865   
+7   airplane-passenger              24  0.534436  0.581701  0.520911   
+8        airplane-food              18  0.247796  0.291043  0.072334   
+9       airplane-seats              17  0.326807  0.304673  0.196698   
+10     airplane-runway              15  0.502841  0.540149  0.449455   
+11    airplane-luggage              14  0.511632  0.560636  0.442095   
+12          apple-tree              73  0.420633  0.442703  0.332695   
+13           apple-red              40  0.340878  0.348609  0.271127   
+14           apple-pie              37  0.384575  0.457967  0.317761   
+15        apple-orange              32  0.465136  0.464772  0.382435   
+16         apple-fruit              32  0.450940  0.438885  0.371713   
+17          apple-worm              29  0.478329  0.524531  0.383160   
+18        apple-banana              24  0.518812  0.534760  0.454533   
+19          apple-core              23  0.269281  0.313111  0.181637   
+
+          WC        CW  predicted  
+0   0.193897  0.150079  57.109467  
+1   0.241270  0.175243  67.482602  
+2  -0.018812 -0.030413  35.837275  
+3  -0.086962 -0.063145  26.548107  
+4   0.045168  0.041475  47.150827  
+5   0.040102  0.010144  40.858658  
+6   0.085297  0.062454  48.303293  
+7   0.151564  0.150478  47.673821  
+8  -0.153159 -0.188589  29.084284  
+9  -0.047892 -0.053298  35.680737  
+10  0.064792  0.068035  43.425899  
+11  0.066459  0.062657  43.758736  
+12  0.069344  0.034956  44.658104  
+13  0.069477  0.018821  44.329251  
+14  0.032755  0.031824  35.816635  
+15  0.087045  0.079570  44.977653  
+16  0.072719  0.071865  43.896752  
+17  0.016983  0.059743  34.976322  
+18  0.095590  0.147418  39.699756  
+19 -0.032606 -0.053381  32.834166  
+
+Correlation bw AllReg and gold:SpearmanrResult(correlation=0.21476730530721874, pvalue=5.2469523169260277e-13)
+ Correlation bw WW and gold:0.186414891828
+ Correlation bw CC and gold:0.170458336009
+ Correlation bw AA and gold:0.193761559005
+ Correlation bw WC and gold:0.216286238849
+ Correlation bw CW and gold:0.182756070666
+Current time: 00:11:32.059901
+Current time: 00:11:32.059939
+Loading model from: /data/model_100_10
+Loading W model...
+Loading C model...
+**** SIMILARITY ****
+FA: similarity calculation...
+0 pairs processed!
+['old', 'new', '1.58']
+word0 = old
+word1 = new
+(999, 7)
+0.139193104237
+             Wordpair  GoldSimilarity        WW        CC        BB        WC  \
+0             old-new            1.58  0.661905  0.442796  0.422968  0.056109   
+1   smart-intelligent            9.20  0.747954  0.742642  0.686236  0.232746   
+2      hard-difficult            8.77  0.785759  0.756487  0.676204  0.082336   
+3      happy-cheerful            9.55  0.778511  0.800010  0.709672  0.107551   
+4           hard-easy            0.95  0.780274  0.745347  0.662839  0.068059   
+5          fast-rapid            8.75  0.690185  0.688727  0.590997  0.129661   
+6          happy-glad            9.17  0.821554  0.849322  0.765933  0.061356   
+7          short-long            1.23  0.802214  0.748209  0.716115  0.230219   
+8         stupid-dumb            9.58  0.842701  0.860568  0.799187  0.232808   
+9       weird-strange            8.93  0.850037  0.869127  0.804103  0.239207   
+10        wide-narrow            1.03  0.832213  0.842281  0.783638  0.244108   
+11          bad-awful            8.42  0.817570  0.843350  0.781046  0.102234   
+12     easy-difficult            0.58  0.814420  0.797994  0.735913  0.138749   
+13       bad-terrible            7.78  0.775417  0.807780  0.711036  0.109994   
+14        hard-simple            1.38  0.647886  0.624835  0.506197  0.035263   
+15         smart-dumb            0.55  0.604884  0.658292  0.490883  0.012311   
+16       insane-crazy            9.57  0.651694  0.673307  0.516970  0.024342   
+17          happy-mad            0.95  0.538432  0.594492  0.421083 -0.005283   
+18         large-huge            9.47  0.780587  0.755875  0.712272  0.129499   
+19         hard-tough            8.05  0.760542  0.770415  0.705311  0.160182   
+
+          CW  predicted  
+0  -0.006571   4.692386  
+1   0.197740   5.627611  
+2   0.078033   5.596271  
+3   0.172651   5.595350  
+4   0.119395   5.483753  
+5   0.167925   5.139768  
+6   0.127663   5.795646  
+7   0.199496   5.824578  
+8   0.249581   6.094697  
+9   0.165068   6.233722  
+10  0.276945   6.020305  
+11  0.227180   5.761738  
+12  0.104635   5.862413  
+13  0.179531   5.591940  
+14  0.016177   4.847939  
+15  0.052825   4.649951  
+16  0.043998   4.867951  
+17 -0.013494   4.349833  
+18  0.245738   5.523195  
+19  0.208096   5.566287  
+
+Correlation bw AllReg and gold:SpearmanrResult(correlation=0.34898950032016512, pvalue=5.488800798565156e-30)
+ Correlation bw WW and gold:0.343375652745
+ Correlation bw CC and gold:0.333563350879
+ Correlation bw AA and gold:0.343929821551
+ Correlation bw WC and gold:0.327542602478
+ Correlation bw CW and gold:0.304723970893
+**** RELATEDNESS McRae ****
+FA: similarity calculation...
+0 pairs processed!
+['AIRPLANE', 'pilot', '88', '']
+word0 = airplane
+word1 = pilot
+(1106, 7)
+0.0761180610227
+              Wordpair  GoldSimilarity        WW        CC        BB  \
+0       airplane-pilot              88  0.729131  0.722107  0.663962   
+1      airplane-flight              77  0.789662  0.794278  0.752648   
+2         airplane-sky              61  0.414393  0.444200  0.257889   
+3       airplane-cloud              41  0.404512  0.454991  0.251051   
+4     airplane-airport              41  0.624208  0.568357  0.488339   
+5      airplane-travel              32  0.379333  0.432894  0.294999   
+6       airplane-wings              30  0.494256  0.479234  0.366862   
+7   airplane-passenger              24  0.626966  0.662044  0.544151   
+8        airplane-food              18  0.263059  0.241548  0.033211   
+9       airplane-seats              17  0.307665  0.304698  0.144815   
+10     airplane-runway              15  0.632624  0.649452  0.531067   
+11    airplane-luggage              14  0.583156  0.651265  0.504574   
+12          apple-tree              73  0.483666  0.476554  0.361455   
+13           apple-red              40  0.329029  0.363893  0.234455   
+14           apple-pie              37  0.463207  0.497733  0.342262   
+15        apple-orange              32  0.471466  0.481569  0.385152   
+16         apple-fruit              32  0.554402  0.546931  0.446616   
+17          apple-worm              29  0.502978  0.552850  0.389069   
+18        apple-banana              24  0.560187  0.569652  0.451256   
+19          apple-core              23  0.272664  0.346964  0.146339   
+
+          WC        CW  predicted  
+0   0.275467  0.221173  62.365078  
+1   0.339415  0.262787  66.627607  
+2  -0.050730 -0.057411  35.878118  
+3  -0.071487 -0.054047  32.629995  
+4   0.089543  0.084678  47.834362  
+5   0.048122 -0.022010  36.643651  
+6   0.063038  0.030873  44.270577  
+7   0.141779  0.144902  47.663788  
+8  -0.167020 -0.239529  34.197762  
+9  -0.075545 -0.104897  32.290415  
+10  0.105679  0.128962  45.367531  
+11  0.090005  0.123110  40.152167  
+12  0.097745  0.045181  48.743678  
+13  0.055338 -0.034022  39.136567  
+14  0.015648  0.044270  36.848470  
+15  0.124984  0.106406  44.565523  
+16  0.120192  0.099107  48.273340  
+17  0.016414  0.062488  35.937541  
+18  0.082591  0.118121  42.634285  
+19 -0.089076 -0.109836  25.832431  
+
+Correlation bw AllReg and gold:SpearmanrResult(correlation=0.22608249583911338, pvalue=2.763190944232965e-14)
+ Correlation bw WW and gold:0.194763893592
+ Correlation bw CC and gold:0.171079737351
+ Correlation bw AA and gold:0.187643961617
+ Correlation bw WC and gold:0.213003065445
+ Correlation bw CW and gold:0.170634459733
+Current time: 00:18:33.283973
+Current time: 00:18:33.284013
 Loading model from: /data/model_200_10
 Loading W model...
 Loading C model...
@@ -369,8 +735,8 @@ Correlation bw AllReg and gold:SpearmanrResult(correlation=0.25260690453109258, 
  Correlation bw AA and gold:0.202596134687
  Correlation bw WC and gold:0.23528796771
  Correlation bw CW and gold:0.186620307454
-Current time: 14:07:00.379422
-Current time: 14:07:00.379476
+Current time: 00:31:32.261371
+Current time: 00:31:32.261430
 Loading model from: /data/model_200_6
 Loading W model...
 Loading C model...
@@ -490,8 +856,8 @@ Correlation bw AllReg and gold:SpearmanrResult(correlation=0.23263268708232451, 
  Correlation bw AA and gold:0.202186796769
  Correlation bw WC and gold:0.23875389288
  Correlation bw CW and gold:0.187090886486
-Current time: 14:19:35.656897
-Current time: 14:19:35.656953
+Current time: 00:44:37.944130
+Current time: 00:44:37.944188
 Loading model from: /data/model_200_test
 Loading W model...
 Loading C model...
@@ -611,8 +977,8 @@ Correlation bw AllReg and gold:SpearmanrResult(correlation=0.21406164752174295, 
  Correlation bw AA and gold:0.188476911678
  Correlation bw WC and gold:0.212302856446
  Correlation bw CW and gold:0.170184309213
-Current time: 14:32:21.171151
-Current time: 14:32:21.171206
+Current time: 00:57:46.178602
+Current time: 00:57:46.178660
 Loading model from: /data/model_300_6
 Loading W model...
 Loading C model...
@@ -732,8 +1098,8 @@ Correlation bw AllReg and gold:SpearmanrResult(correlation=0.27594329835016213, 
  Correlation bw AA and gold:0.218475582181
  Correlation bw WC and gold:0.252956958004
  Correlation bw CW and gold:0.202978802475
-Current time: 14:50:39.315208
-Current time: 14:50:39.315259
+Current time: 01:17:00.166170
+Current time: 01:17:00.166227
 Loading model from: /data/model_100_6
 Loading W model...
 Loading C model...
@@ -853,6 +1219,6 @@ Correlation bw AllReg and gold:SpearmanrResult(correlation=0.22289576773174463, 
  Correlation bw AA and gold:0.183621128259
  Correlation bw WC and gold:0.208495095355
  Correlation bw CW and gold:0.167289486087
-Current time: 14:57:31.093136
+Current time: 01:24:04.574473
 Qualitative experiments
-Current time:  14:57:35.548678
+Current time:  01:24:09.248734
