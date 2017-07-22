@@ -1,16 +1,14 @@
-print("started running trainGloveModel.r")
-
-library("text2vec")
-
 args = commandArgs(trailingOnly=TRUE)
 if (length(args) != 3) {
   cat("trainGloveModel.R <size> <window> <iters>\n")
 } else {
 
+suppressMessages(library("text2vec"))
 vectorSize   <- as.numeric(args[1])
 window       <- as.numeric(args[2])
 iters        <- as.numeric(args[3])
 
+print("started running trainGloveModel.r")
 text8_file = "/data/wiki.shuffled-norm1-phrase1"
 
 wiki = readLines(text8_file, n = 10000000, warn = FALSE)
@@ -62,3 +60,5 @@ write.table(C, file = vectorsC, append = TRUE, quote = FALSE, sep = " ",
             eol = "\n", dec = ".", row.names = FALSE,
             col.names = FALSE, qmethod = c("escape", "double"),
             fileEncoding = "")
+
+}
