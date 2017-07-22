@@ -10,7 +10,7 @@ print("started running trainGloveModel.r")
 
 library("text2vec")
 
-text8_file = "/data/wordvet/wiki.shuffled-norm1-phrase1"
+text8_file = "/data/wiki.shuffled-norm1-phrase1"
 
 wiki = readLines(text8_file, n = 10000000, warn = FALSE)
 # Create iterator over tokens
@@ -40,19 +40,19 @@ contextVec = dd$w_j
 listVocab = vocab$vocab[,1]
 
 W = cbind(listVocab, wordVec)
-fileConn<-file("/data/wordvet/vectorsW.txt")
+fileConn<-file("/data/model_200_10/vectorsW.txt")
 writeLines(paste(nrow(wordVec), ncol(wordVec)),fileConn )
 close(fileConn)
-write.table(W, file = "/data/wordvet/vectorsW.txt", append = TRUE, quote = FALSE, sep = " ",
+write.table(W, file = "/data/model_200_10/vectorsW.txt", append = TRUE, quote = FALSE, sep = " ",
             eol = "\n", dec = ".", row.names = FALSE,
             col.names = FALSE, qmethod = c("escape", "double"),
             fileEncoding = "")
 
 C = cbind(listVocab, contextVec)           
-fileConn<-file("/data/wordvet/vectorsC.txt")
+fileConn<-file("/data/model_200_10/vectorsC.txt")
 writeLines(paste(nrow(contextVec), ncol(contextVec)),fileConn )
 close(fileConn)
-write.table(C, file = "/data/wordvet/vectorsC.txt", append = TRUE, quote = FALSE, sep = " ",
+write.table(C, file = "/data/model_200_10/vectorsC.txt", append = TRUE, quote = FALSE, sep = " ",
             eol = "\n", dec = ".", row.names = FALSE,
             col.names = FALSE, qmethod = c("escape", "double"),
             fileEncoding = "")
