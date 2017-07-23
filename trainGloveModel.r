@@ -19,7 +19,7 @@ it = itoken(tokens, progressbar = FALSE)
 
 vocab <- create_vocabulary(it)
 vocab <- prune_vocabulary(vocab, doc_proportion_max = 0.3,
-                          max_number_of_terms = 30000L, term_count_min = 5L)
+                          max_number_of_terms = 100000L, term_count_min = 5L)
 # Use our filtered vocabulary
 vectorizer <- vocab_vectorizer(vocab, skip_grams_window=window)
 
