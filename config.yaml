@@ -3,7 +3,7 @@ input_dirs: classification-data/input/
 output_dirs: classification-data/output/
 output_summary: summary.txt
 
-best_model: model_200_10
+best_model: model_300_10
 
 base_model:
     min_count: 1
