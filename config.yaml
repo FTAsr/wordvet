@@ -12,5 +12,9 @@ base_model:
     iter: 5
 
 models:
-   - model_200_6
+   - model_100_5
+   - model_100_10
+   - model_200_5
    - model_200_10
+   - model_300_5
+   - model_300_10
