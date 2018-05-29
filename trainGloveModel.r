@@ -18,8 +18,8 @@ tokens <- space_tokenizer(wiki)
 it = itoken(tokens, progressbar = FALSE)
 
 vocab <- create_vocabulary(it)
-vocab <- prune_vocabulary(vocab, doc_proportion_max = 0.3,
-                          max_number_of_terms = 100000L, term_count_min = 5L)
+vocab <- prune_vocabulary(vocab, doc_proportion_max = 0.1,
+                          max_number_of_terms = 100000L, term_count_min = 1L)
 # Use our filtered vocabulary
 vectorizer <- vocab_vectorizer(vocab, skip_grams_window=window)
 
@@ -39,7 +39,7 @@ contextVec = dd$w_j
 listVocab = vocab$vocab[,1]
 
 W = cbind(listVocab, wordVec)
-modelDir <- paste("/data/model_", vectorSize, "_", window, sep="")
+modelDir <- paste("/data/glove_", vectorSize, "_", window, sep="")
 dir.create(modelDir, showWarnings=FALSE)
 
 vectorsW <- paste(modelDir, "/vectorsW.txt", sep="")
