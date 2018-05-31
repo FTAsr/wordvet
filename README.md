@@ -27,5 +27,5 @@ If you use this software please cite:
 
 ## Installation
 
-Patched versions of word2vec and text2vec included which allow accessing the context vectors
-in Word2Vec and GloVE models respectively.
+A patched version of word2vec is included which allows accessing the context vectors
+in Word2Vec.
