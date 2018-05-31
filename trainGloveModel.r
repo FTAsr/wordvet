@@ -9,7 +9,7 @@ window       <- as.numeric(args[2])
 iters        <- as.numeric(args[3])
 
 print("started running trainGloveModel.r")
-text8_file = "/data/wiki.shuffled-norm1-phrase1"
+text8_file = "data/wiki.shuffled-norm1-phrase1"
 
 wiki = readLines(text8_file, n = 10000000, warn = FALSE)
 # Create iterator over tokens
@@ -19,11 +19,11 @@ it = itoken(tokens, progressbar = FALSE)
 
 vocab <- create_vocabulary(it)
 vocab <- prune_vocabulary(vocab, doc_proportion_max = 0.1,
-                          max_number_of_terms = 100000L, term_count_min = 1L)
+                          vocab_term_max = 100000L, term_count_min = 1L)
 # Use our filtered vocabulary
-vectorizer <- vocab_vectorizer(vocab, skip_grams_window=window)
+vectorizer <- vocab_vectorizer(vocab)
 
-tcm <- create_tcm(it, vectorizer)
+tcm <- create_tcm(it, vectorizer, skip_grams_window=window)
 
 ind <- tcm@x >= 1
 tcm@x <- tcm@x[ind]
@@ -31,15 +31,17 @@ tcm@i <- tcm@i[ind]
 tcm@j <- tcm@j[ind]
 
 glove = GlobalVectors$new(word_vectors_size = vectorSize, vocabulary = vocab, x_max = 10)
-glove$fit(tcm, n_iter = iters)
+glove$fit_transform(tcm, n_iter = iters)
+print("Checkpoint")
 
-dd <- glove$dump_model()
+
+dd <- glove$dump()
 wordVec = dd$w_i
 contextVec = dd$w_j
 listVocab = vocab$vocab[,1]
 
 W = cbind(listVocab, wordVec)
-modelDir <- paste("/data/glove_", vectorSize, "_", window, sep="")
+modelDir <- paste("data/glove_", vectorSize, "_", window, sep="")
 dir.create(modelDir, showWarnings=FALSE)
 
 vectorsW <- paste(modelDir, "/vectorsW.txt", sep="")

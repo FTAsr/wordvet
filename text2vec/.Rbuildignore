@@ -1,8 +1,0 @@
-^\.travis\.yml$
-^.*\.Rproj$
-^\.Rproj\.user$
-^cran-comments\.md$
-R/drafts/*
-src/drafts/*
-vignettes/drafts/*
-docs
