@@ -24,6 +24,7 @@ If you use this software please cite:
 - [gensim](https://github.com/RaRe-Technologies/gensim)
 - [PyYaml](https://github.com/yaml/pyyaml)
 - [pandas](https://github.com/pandas-dev/pandas)
+- [text2vec](https://github.com/dselivanov/text2vec)
 
 ## Installation
 
@@ -54,11 +55,19 @@ mv wiki.shuffled-norm1-phrase1 data/
 
 ## Building models
 
-Word2vec models can be built as usual
+Word2vec models can be built with the `trainWord2Vec.sh` script
 
 ````bash
-./word2vec/word2vec -train wiki.shuffled-norm1-phrase1 -min_count 1 -outputw vectorsW.txt -outputc vectorsC.txt -outputwc vectorsB.txt -cbow 0 -size 100 -window 10 -negative 5 -threads 20 -iter 5
+# Train word2vec model with vector size 100, window size 5 for 2 iterations
+bash trainWord2Vec.sh 100 5 2
 ````
+
+GloVe models can be built with the `trainGloveModel.r` script
+
+````bash
+# Train GloVe model with vector size 100, skipgram window size 5 for iterations
+Rscript trainGloveModel.r 100 5 2
+```
 
 ## Running experiments
 
