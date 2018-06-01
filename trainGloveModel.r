@@ -11,7 +11,7 @@ iters        <- as.numeric(args[3])
 print("started running trainGloveModel.r")
 text8_file = "data/wiki.shuffled-norm1-phrase1"
 
-wiki = readLines(text8_file, n = 10000000, warn = FALSE)
+wiki = readLines(text8_file, warn = FALSE)
 # Create iterator over tokens
 tokens <- space_tokenizer(wiki)
 # Create vocabulary. Terms will be unigrams (simple words).
@@ -32,13 +32,12 @@ tcm@j <- tcm@j[ind]
 
 glove = GlobalVectors$new(word_vectors_size = vectorSize, vocabulary = vocab, x_max = 10)
 glove$fit_transform(tcm, n_iter = iters)
-print("Checkpoint")
 
 
 dd <- glove$dump()
 wordVec = dd$w_i
 contextVec = dd$w_j
-listVocab = vocab$vocab[,1]
+listVocab = vocab$term
 
 W = cbind(listVocab, wordVec)
 modelDir <- paste("models/glove_", vectorSize, "_", window, sep="")
