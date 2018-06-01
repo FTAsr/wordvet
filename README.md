@@ -67,7 +67,7 @@ GloVe models can be built with the `trainGloveModel.r` script
 ````bash
 # Train GloVe model with vector size 100, skipgram window size 5 for iterations
 Rscript trainGloveModel.r 100 5 2
-```
+````
 
 ## Running experiments
 
