@@ -1,9 +1,7 @@
-model_repository: /data
+model_repository: models
 input_dirs: classification-data/input/
 output_dirs: classification-data/output/
 output_summary: summary.txt
-
-best_model: model_300_10
 
 base_model:
     word2vec:
@@ -11,11 +9,3 @@ base_model:
         cbow: 0
         negative: 5
         iter: 5
-
-models:
-   - model_100_5
-   - model_100_10
-   - model_200_5
-   - model_200_10
-   - model_300_5
-   - model_300_10

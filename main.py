@@ -394,22 +394,9 @@ if __name__ == "__main__":
         sys.exit()
 
     config = yaml.load(open(sys.argv[1]))
-    ### Experiment 1
     print("Quantitative experiments")
     print("Current time: " + str(datetime.now().time()))
     inputPath = config['input_dirs']
     outputPath = config['output_dirs']
     modelRepository = config['model_repository']
     experiment1(modelRepository, inputPath, outputPath)
-
-    ### Experiment 2
-    print("Qualitative experiments")
-    print("Current time: ", str(datetime.now().time()))
-    best_model = modelRepository + "/" + config['best_model'] + "/"
-    mwFile = best_model + "vectorsW.txt"
-    mcFile = best_model + "vectorsC.txt"
-    modelW = KeyedVectors.load_word2vec_format(mwFile, binary=False)
-    modelC = KeyedVectors.load_word2vec_format(mcFile, binary=False)
-    wordpairFile = "classification-data/input/McRaeList-Gold.csv"
-    outputFile = "classification-data/output/McRaeList-GuessingEvaluation.txt"
-    #experiment2(wordpairFile, modelW, modelC, outputFile)

@@ -41,7 +41,7 @@ contextVec = dd$w_j
 listVocab = vocab$vocab[,1]
 
 W = cbind(listVocab, wordVec)
-modelDir <- paste("data/glove_", vectorSize, "_", window, sep="")
+modelDir <- paste("models/glove_", vectorSize, "_", window, sep="")
 dir.create(modelDir, showWarnings=FALSE)
 
 vectorsW <- paste(modelDir, "/vectorsW.txt", sep="")
